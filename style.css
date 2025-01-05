@@ -1,0 +1,444 @@
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll caused by any overflow */
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  z-index: 1; /* Ensure hero section stacks below tooltips */
+  min-height: 80vh; /* Reduce the minimum height to decrease empty space */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, #000),
+              url('bg-image.jpg') no-repeat center center/cover;
+  background-size: cover; /* Fill the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  width: 100%; /* Default full width for hero */
+}
+
+.hero-content {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  padding: 0 1rem;
+  margin-bottom: 1rem; /* Adjusted to match the distance between subtitle and title */
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+/* Rankings Table Section */
+.rankings-section {
+  position: relative; /* Ensure tooltips stack properly */
+  width: 100%; /* Full width */
+  margin: 4rem auto;
+  padding: 0 1rem; /* Maintain black space around the table */
+  z-index: 2; /* Ensure tooltips appear above hero section */
+}
+
+.rankings-table {
+  width: 100%; /* Default full width for table */
+  border-collapse: collapse;
+  background-color: #111;
+  color: #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto; /* Center the table */
+  border-left: 1px solid #444; /* Add left border to table */
+  border-right: 1px solid #444; /* Add right border to table */
+}
+
+.rankings-table thead {
+  background-color: #1b1b1b;
+  color: #ffffff; /* Updated to bright white */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.rankings-table th {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #333;
+  position: relative; /* Allow tooltip buttons to be positioned properly */
+  border-right: 1px solid #444; /* Add right border to th cells */
+  cursor: pointer; /* Add cursor pointer for sorting */
+  position: relative; /* Ensure sorting buttons are positioned correctly */
+}
+
+.sort-btn {
+  background: none;
+  border: none;
+  color: #ddd;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  margin: 0;
+}
+
+.rankings-table td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #222;
+  border-right: 1px solid #444; /* Add right border to td cells */
+}
+
+.rankings-table tr:nth-child(even) {
+  background-color: #181818;
+}
+
+.rankings-table tr:hover {
+  background-color: #222;
+  transition: background-color 0.3s ease;
+}
+
+.rankings-table a {
+  color: #fff; /* Ensure links are white */
+  text-decoration: none; /* Remove underline */
+}
+
+.rankings-table a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Avatar Column Styling */
+.avatar-cell {
+  text-align: center;
+  vertical-align: middle; /* Center vertically in the cell */
+}
+
+/* Avatar Image Styling */
+.avatar-img {
+  width: 50px; /* Set width for avatar */
+  height: 50px; /* Set height for avatar */
+  border-radius: 50%; /* Make avatar circular */
+  object-fit: cover; /* Ensure image scales properly */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+  display: block; /* Ensure the image behaves like a block element */
+  margin: 0 auto; /* Center image inside the cell */
+}
+
+/* Loading Placeholders */
+.loading-placeholder {
+  background-color: #222; /* Dark background for placeholder rows */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.placeholder-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.placeholder-avatar {
+  width: 50px;
+  height: 50px;
+  background: #444;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.placeholder-text {
+  width: 60%;
+  height: 16px;
+  background: #444;
+  border-radius: 4px;
+}
+
+/* Pulsing effect for placeholders */
+@keyframes pulse {
+  0% {
+      background-color: #333;
+  }
+  50% {
+      background-color: #444;
+  }
+  100% {
+      background-color: #333;
+  }
+}
+
+/* Tooltip Button Styling */
+.tooltip-btn {
+  position: absolute;
+  top: 50%; /* Center vertically in header */
+  transform: translate(100%, -50%); /* Move to the right of the heading text */
+  margin-left: 5px; /* Small gap between text and button */
+  width: 20px; /* Smaller size */
+  height: 20px; /* Round button */
+  background-color: #000; /* Black fill color */
+  border: 2px solid; /* Border with gradient color */
+  border-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb) 1;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 12px; /* Smaller text */
+  font-weight: bold;
+  text-align: center;
+  line-height: 20px; /* Vertically align the question mark */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tooltip-btn:hover {
+  transform: translate(100%, -50%) scale(1.2); /* Slight zoom effect */
+  background-color: #1b1b1b; /* Slightly lighter black on hover */
+}
+
+.tooltip-btn .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: left; /* Align text to left for better readability */
+  padding: 8px 16px; /* Increased padding for better spacing */
+  border-radius: 6px;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 30px; /* Position tooltip below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words */
+  max-width: 500px; /* Increased max width for a wider rectangle */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999; /* Ensure tooltip appears above everything */
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Show tooltip on hover */
+.tooltip-btn:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 5px); /* Slight downward movement for effect */
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between items */
+  margin-top: 1rem; /* Adjusted top margin to match the distance between subtitle and title */
+  border-bottom: 2px solid #444; /* Add bottom border to navbar */
+  flex-direction: row; /* Ensure navbar is horizontal by default */
+  max-width: 90%; /* Limit the width of the navbar */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  border-bottom: 2px solid transparent; /* Add bottom border for active state */
+  transition: border-bottom 0.3s ease;
+  font-weight: bold;
+  color: #fff;
+  position: relative; /* For separator positioning */
+}
+
+.navbar-item::after {
+  content: "";
+  position: absolute;
+  right: -0.5rem; /* Adjusted to ensure alignment */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.3); /* Opaque separator */
+}
+
+.navbar-item:last-child::after {
+  display: none; /* Remove separator after the last item */
+}
+
+.navbar-item.active {
+  border-bottom: 2px solid #fff; /* Highlight active tab */
+}
+
+.navbar-content {
+  display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: transparent; /* Remove background color */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+}
+
+.navbar-content.active {
+  display: block;
+}
+
+.navbar-content a {
+  color: #00aaff; /* Lighter blue color for links */
+  text-decoration: underline; /* Underline the link */
+}
+
+.navbar-content a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Sort Box Styling */
+.sort-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.sort-box label {
+  margin-right: 0.5rem;
+  color: #ddd;
+}
+
+.sort-box select {
+  background-color: #111;
+  color: #ddd;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+}
+
+/* Sorted Column Styling */
+.sorted-column {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border-bottom: 2px solid #000; /* Black border */
+  border-right: 1px solid #000; /* Black border */
+}
+
+.default-column {
+  background-color: #333; /* Default background color */
+  color: #fff; /* Default text color */
+  border-bottom: 2px solid #00aaff; /* Default border color */
+}
+
+/* Default styling for the average rating column */
+.rankings-table th.default-average,
+.rankings-table td.default-average {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border-bottom: 2px solid #000; /* Black border */
+  border-right: 1px solid #000; /* Black border */
+}
+
+/* Media Query for Tablets */
+@media (max-width: 768px) {
+  .hero-section {
+      min-height: 100vh;
+      width: 100%; /* Full width */
+      margin: 0 auto;
+      padding: 0;
+  }
+  .hero-content {
+      padding: 0 1rem;
+      width: 100%; /* Full width */
+  }
+  .title {
+      font-size: 2.5rem;
+  }
+  .subtitle {
+      font-size: 1rem;
+  }
+  .navbar {
+      flex-direction: row; /* Ensure navbar remains horizontal */
+      align-items: center;
+  }
+  .navbar-item {
+      width: auto; /* Auto width */
+      text-align: center;
+      padding: 0.5rem 0;
+  }
+  .navbar-content {
+      width: 100%; /* Full width */
+      text-align: center;
+  }
+  .rankings-section {
+      margin: 2rem auto;
+      padding: 0.5rem;
+  }
+  .rankings-table {
+      width: 100%; /* Full width */
+  }
+  .rankings-table th,
+  .rankings-table td {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+  }
+}
+
+/* Media Query for Phones */
+@media (max-width: 480px) {
+  .hero-section {
+      min-height: 100vh;
+      width: 100%; /* Full width */
+      max-width: 640px; /* Set max-width to match the table width */
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center the content */
+  }
+  .hero-content {
+      padding: 0 1rem;
+      width: 100%; /* Full width */
+  }
+  .title {
+      font-size: 2rem;
+  }
+  .subtitle {
+      font-size: 0.8rem;
+  }
+  .navbar {
+      flex-direction: row; /* Ensure navbar remains horizontal */
+      align-items: center;
+  }
+  .navbar-item {
+      width: auto; /* Auto width */
+      text-align: center;
+      padding: 0.5rem 0;
+  }
+  .navbar-content {
+      width: 100%; /* Full width */
+      text-align: center;
+  }
+  .rankings-section {
+      margin: 1rem auto;
+      padding: 0.5rem;
+  }
+  .rankings-table {
+      width: 100%; /* Full width */
+  }
+  .rankings-table th,
+  .rankings-table td {
+      padding: 0.3rem;
+      font-size: 0.7rem;
+  }
+}
