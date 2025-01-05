@@ -185,58 +185,50 @@ body {
   }
 }
 
-/* Tooltip Button Styling */
+/* Remove existing tooltip styles */
 .tooltip-btn {
-  position: absolute;
-  top: 50%; /* Center vertically in header */
-  transform: translate(100%, -50%); /* Move to the right of the heading text */
-  margin-left: 5px; /* Small gap between text and button */
-  width: 20px; /* Smaller size */
-  height: 20px; /* Round button */
-  background-color: #000; /* Black fill color */
-  border: 2px solid; /* Border with gradient color */
-  border-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb) 1;
-  border-radius: 50%;
-  color: #ffffff;
-  font-size: 12px; /* Smaller text */
-  font-weight: bold;
-  text-align: center;
-  line-height: 20px; /* Vertically align the question mark */
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tooltip-btn:hover {
-  transform: translate(100%, -50%) scale(1.2); /* Slight zoom effect */
-  background-color: #1b1b1b; /* Slightly lighter black on hover */
+    position: relative;
+    border: 2px solid black; /* Black border */
+    background-color: grey; /* Grey fill */
+    cursor: pointer;
+    font-size: 0.5rem; /* Slightly smaller font size */
+    color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tooltip-btn .tooltip-text {
-  visibility: hidden;
-  opacity: 0;
-  background-color: #333;
-  color: #fff;
-  text-align: left; /* Align text to left for better readability */
-  padding: 8px 16px; /* Increased padding for better spacing */
-  border-radius: 6px;
-  font-size: 0.8rem;
-  position: absolute;
-  top: 30px; /* Position tooltip below the button */
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: normal; /* Allow text to wrap */
-  word-wrap: break-word; /* Break long words */
-  max-width: 500px; /* Increased max width for a wider rectangle */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 9999; /* Ensure tooltip appears above everything */
-  transition: opacity 0.2s ease, transform 0.2s ease;
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 125%; /* Position below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    width: 200px; /* Wider tooltip bubble */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: opacity 0.3s ease;
 }
 
-/* Show tooltip on hover */
 .tooltip-btn:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(-50%, 5px); /* Slight downward movement for effect */
+    visibility: visible;
+    opacity: 1;
+}
+
+.default-average .tooltip-btn {
+    background-color: grey; /* Grey fill like any other tooltip button */
+    color: #fff; /* White text */
 }
 
 /* Navbar Styling */
@@ -332,6 +324,12 @@ body {
   color: #000; /* Black text */
   border-bottom: 2px solid #000; /* Black border */
   border-right: 1px solid #000; /* Black border */
+}
+
+.sorted-column .tooltip-btn {
+    background-color: white; /* White fill for sorted column tooltip */
+    color: black; /* Black text */
+    border: 2px solid black; /* Black border */
 }
 
 .default-column {

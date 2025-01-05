@@ -86,10 +86,10 @@ async function fetchCurrentRankings() {
                 const statsData = await statsRes.json();
 
                 ratingData = {
-                    rapid: statsData.chess_rapid?.last?.rating || "N/A",
-                    blitz: statsData.chess_blitz?.last?.rating || "N/A",
+                    puzzle: statsData.tactics?.highest?.rating || "N/A",
                     bullet: statsData.chess_bullet?.last?.rating || "N/A",
-                    puzzle: statsData.tactics?.highest?.rating || "N/A"
+                    blitz: statsData.chess_blitz?.last?.rating || "N/A",
+                    rapid: statsData.chess_rapid?.last?.rating || "N/A"
                 };
             }
 
@@ -97,9 +97,10 @@ async function fetchCurrentRankings() {
             const calculatedBullet = ratingData.bullet === "N/A" ? 0 : ratingData.bullet;
             const calculatedBlitz = ratingData.blitz === "N/A" ? 0 : ratingData.blitz;
             const calculatedRapid = ratingData.rapid === "N/A" ? 0 : ratingData.rapid;
+            const calculatedPuzzle = ratingData.puzzle === "N/A" ? 0 : ratingData.puzzle;
 
             // Calculate the SEYCHESS rating with the updated weighted formula
-            const seyChessRating = (calculatedBullet * 0.05) + (calculatedBlitz * 0.25) + (calculatedRapid * 0.7);
+            const seyChessRating = (calculatedBullet * 0.1) + (calculatedBlitz * 0.3) + (calculatedRapid * 0.5) + (calculatedPuzzle * 0.1);
 
             // Push the processed data
             rankings.push({
@@ -108,10 +109,10 @@ async function fetchCurrentRankings() {
                 rank: 0,
                 platform: "Chess.com",
                 avatar: avatar,
+                puzzle: ratingData.puzzle,
                 bullet: ratingData.bullet,
                 blitz: ratingData.blitz,
                 rapid: ratingData.rapid,
-                puzzle: ratingData.puzzle,
                 seychelles: seyChessRating
             });
         } catch (error) {
@@ -150,10 +151,11 @@ function displayRankingsInChunks(rankings) {
                             onerror="this.src='default-avatar.png';">
                     </td>
                     <td><a href="https://www.chess.com/member/${player.username}" target="_blank">${player.username}</a></td>
+                    <td>${player.puzzle === "N/A" ? "N/A" : player.puzzle}</td>
                     <td>${player.bullet === "N/A" ? "N/A" : player.bullet}</td>
                     <td>${player.blitz === "N/A" ? "N/A" : player.blitz}</td>
                     <td>${player.rapid === "N/A" ? "N/A" : player.rapid}</td>
-                    <td>${player.puzzle === "N/A" ? "N/A" : player.puzzle}</td>
+                    
                     <td class="default-average">${seychessRating}</td>
                 </tr>
             `;
@@ -171,57 +173,34 @@ function displayRankingsInChunks(rankings) {
 
 // Sorting function based on selected column and order
 function sortTableByColumn() {
-    const sortSelect = document.getElementById("sort-select");
-    const sortOrder = document.getElementById("sort-order").value;
-    const sortValue = sortSelect.value;
-    let columnIndex;
+    const table = document.querySelector('.rankings-table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const sortSelect = document.getElementById('sort-select');
+    const sortOrder = document.getElementById('sort-order').value;
+    const column = sortSelect.value;
 
-    switch (sortValue) {
-        case "bullet":
-            columnIndex = 3;
-            break;
-        case "blitz":
-            columnIndex = 4;
-            break;
-        case "rapid":
-            columnIndex = 5;
-            break;
-        case "puzzle":
-            columnIndex = 6;
-            break;
-        case "average":
-            columnIndex = 7;
-            break;
-        default:
-            return;
-    }
-
-    sortTable(columnIndex, "number", sortOrder);
-    highlightSortedColumn(columnIndex);
-
-    if (isFirstSort) {
-        isFirstSort = false;
-    }
-}
-
-// Sorting function
-function sortTable(columnIndex, type, order) {
-    const table = document.querySelector(".rankings-table tbody");
-    const rows = Array.from(table.rows);
+    const columnIndex = {
+        'puzzle': 3,
+        'bullet': 4,
+        'blitz': 5,
+        'rapid': 6,
+        'average': 7
+    }[column];
 
     const sortedRows = rows.sort((a, b) => {
-        const aText = a.cells[columnIndex].innerText;
-        const bText = b.cells[columnIndex].innerText;
+        const aText = a.children[columnIndex].textContent;
+        const bText = b.children[columnIndex].textContent;
+        const aValue = parseInt(aText, 10);
+        const bValue = parseInt(bText, 10);
 
-        if (type === "number") {
-            return order === "asc" ? parseFloat(aText) - parseFloat(bText) : parseFloat(bText) - parseFloat(aText);
-        } else if (type === "string") {
-            return order === "asc" ? aText.localeCompare(bText) : bText.localeCompare(aText);
-        }
+        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
     });
 
-    // Append sorted rows back to the table
-    sortedRows.forEach(row => table.appendChild(row));
+    tbody.innerHTML = '';
+    sortedRows.forEach(row => tbody.appendChild(row));
+
+    highlightSortedColumn(columnIndex);
 }
 
 // Highlight the sorted column
@@ -254,6 +233,26 @@ function removeDefaultStyling() {
 
     averageColumnHeader.classList.remove("default-average");
     averageColumnCells.forEach(cell => cell.classList.remove("default-average"));
+}
+
+// Sorting function
+function sortTable(columnIndex, type, order) {
+    const table = document.querySelector(".rankings-table tbody");
+    const rows = Array.from(table.rows);
+
+    const sortedRows = rows.sort((a, b) => {
+        const aText = a.cells[columnIndex].innerText;
+        const bText = b.cells[columnIndex].innerText;
+
+        if (type === "number") {
+            return order === "asc" ? parseFloat(aText) - parseFloat(bText) : parseFloat(bText) - parseFloat(aText);
+        } else if (type === "string") {
+            return order === "asc" ? aText.localeCompare(bText) : bText.localeCompare(aText);
+        }
+    });
+
+    // Append sorted rows back to the table
+    sortedRows.forEach(row => table.appendChild(row));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
