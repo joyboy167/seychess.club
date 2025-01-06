@@ -148,12 +148,16 @@ function displayRankingsInChunks(rankings) {
 
             // Determine medal based on rank
             let medal = '';
+            let medalTooltip = '';
             if (player.rank === 1) {
                 medal = '🥇'; // Gold medal
+                medalTooltip = 'Best Overall';
             } else if (player.rank === 2) {
                 medal = '🥈'; // Silver medal
+                medalTooltip = '2nd Overall';
             } else if (player.rank === 3) {
                 medal = '🥉'; // Bronze medal
+                medalTooltip = '3rd Overall';
             }
 
             // Determine icons for best rapid, blitz, puzzle, and bullet scores
@@ -161,17 +165,25 @@ function displayRankingsInChunks(rankings) {
             let blitzIcon = '';
             let puzzleIcon = '';
             let bulletIcon = '';
+            let rapidTooltip = '';
+            let blitzTooltip = '';
+            let puzzleTooltip = '';
+            let bulletTooltip = '';
             if (player.rapid == bestRapid) {
                 rapidIcon = '⏱️'; // Stopwatch icon
+                rapidTooltip = 'Best Rapid';
             }
             if (player.blitz == bestBlitz) {
                 blitzIcon = '⚡'; // Lightning bolt icon
+                blitzTooltip = 'Best Blitz';
             }
             if (player.puzzle == bestPuzzle) {
                 puzzleIcon = '🧩'; // Puzzle piece icon
+                puzzleTooltip = 'Best Puzzle';
             }
             if (player.bullet == bestBullet) {
                 bulletIcon = '🚀'; // Rocket icon
+                bulletTooltip = 'Best Bullet';
             }
 
             const row = `
@@ -184,7 +196,14 @@ function displayRankingsInChunks(rankings) {
                             class="avatar-img"
                             onerror="this.src='default-avatar.png';">
                     </td>
-                    <td><a href="https://www.chess.com/member/${player.username}" target="_blank">${player.username}</a> ${medal} ${rapidIcon} ${blitzIcon} ${puzzleIcon} ${bulletIcon}</td>
+                    <td>
+                        <a href="https://www.chess.com/member/${player.username}" target="_blank">${player.username}</a>
+                        <span class="tooltip">${medal}<span class="tooltip-text">${medalTooltip}</span></span>
+                        <span class="tooltip">${rapidIcon}<span class="tooltip-text">${rapidTooltip}</span></span>
+                        <span class="tooltip">${blitzIcon}<span class="tooltip-text">${blitzTooltip}</span></span>
+                        <span class="tooltip">${puzzleIcon}<span class="tooltip-text">${puzzleTooltip}</span></span>
+                        <span class="tooltip">${bulletIcon}<span class="tooltip-text">${bulletTooltip}</span></span>
+                    </td>
                     <td>${player.puzzle === "N/A" ? "N/A" : player.puzzle}</td>
                     <td>${player.bullet === "N/A" ? "N/A" : player.bullet}</td>
                     <td>${player.blitz === "N/A" ? "N/A" : player.blitz}</td>
