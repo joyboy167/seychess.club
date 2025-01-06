@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seychelles Chess Rankings</title>
+    <title>The Seychess Club.</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="web-icon.ico" type="image/x-icon"> <!-- Link to favicon -->
 </head>
@@ -11,16 +11,19 @@
     <!-- Header Section -->
     <div class="hero-section">
         <div class="hero-content">
-            <h1 class="title">SEYCHELLES CHESS RANKINGS</h1>
-            <p class="subtitle">Explore the top players and their performances across platforms.</p>
+            <h1 class="title">The Seychess Club.</h1>
             <div class="navbar">
-                <div class="navbar-item">About</div>
+                <div class="navbar-item active">About</div>
                 <div class="navbar-item">Community</div>
                 <div class="navbar-item">Tournaments</div>
                 <div class="navbar-item">Dev Log</div>
             </div>
-            <div class="navbar-content">
-                <p>Hi guys, it's Adam. Thanks for checking out the site. With your input and participation, I hope it continues to grow and foster competitiveness for chess in Seychelles. This space allows people to compare their live ratings from Chess.com and target different formats to beat their friends on the leaderboard. In the future, it will have more features like profiles, social aspects, reports on player strengths and weaknesses, and tutorials. We are also working to get the support of the chess federation to make it even more beneficial for everyone involved.</p>
+            <div class="navbar-content active">
+                <p>
+                    Building a player-led community for us Seychellois to compete with friends on the Chess.com leaderboards across several formats.
+                    <br>Expanding to Lichess soon and bringing tournaments and other competitive formats.
+                    <br>Join us and be part of the growing chess community in Seychelles.
+                </p>
             </div>
             <div class="navbar-content">
                 <p>This project is built by the community. If you have any notes, suggestions, or friends who want to be featured on the site, feel free to message me <a href="https://www.chess.com/member/adamo25" target="_blank">here</a> for further information.</p>
@@ -29,9 +32,10 @@
                 <p>This section provides information about upcoming chess federation tournaments and potential SeyChess online tournaments in the future.<br>We hope to find a format for players to compete for leaderboard head-to-head points and other competitive aspects. Watch this space for updates!</p>
             </div>
             <div class="navbar-content">
-                <p>Current action item: Improving the loading speed for the table, as recommended by lauvalsez. Thanks for the input!</p>
-                <p>Next action item: Implementing responsive design to ensure the site looks perfect on all common phone sizes.</p>
-                <p>Future action item: Adding sorting arrows to the table columns and including a new category for puzzle ratings.</p>
+                <p>Hi guys, it's Adam. Here is our roadmap for upcoming improvements to the site:</p>
+                <p>Main goal: Have good responsive design for phone access.</p>
+                <p>Next goal: Putting dev credit and version control in footer.</p>
+                <p>Minor goal: Growing to 15 players.</p>
             </div>
         </div>
     </div>
@@ -57,7 +61,7 @@
                 <tr>
                     <th>RANK</th>
                     <th>AVATAR</th>
-                    <th>NAME</th>
+                    <th>USERNAME</th>
                     <th>
                         PUZZLE
                         <button class="tooltip-btn">
@@ -107,7 +111,7 @@
                 </tr>
                 <!-- Ensure the data is correctly mapped to the columns -->
                 <tr>
-                    <td>1</td>
+                    <td>#1</td>
                     <td><img src="avatar1.jpg" alt="Avatar" class="avatar-img"></td>
                     <td>Player 1</td>
                     <td>1500</td> <!-- Puzzle Rating -->

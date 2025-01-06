@@ -134,15 +134,49 @@ function displayRankingsInChunks(rankings) {
     const chunkSize = 4; // Number of rows to render at a time
     let currentIndex = 0;
 
+    // Find the best rapid, blitz, puzzle, and bullet scores
+    const bestRapid = Math.max(...rankings.map(player => player.rapid === "N/A" ? 0 : player.rapid));
+    const bestBlitz = Math.max(...rankings.map(player => player.blitz === "N/A" ? 0 : player.blitz));
+    const bestPuzzle = Math.max(...rankings.map(player => player.puzzle === "N/A" ? 0 : player.puzzle));
+    const bestBullet = Math.max(...rankings.map(player => player.bullet === "N/A" ? 0 : player.bullet));
+
     function renderChunk() {
         const chunk = rankings.slice(currentIndex, currentIndex + chunkSize);
         chunk.forEach(player => {
             // Format SeyChess rating to 1 decimal place unless it's "N/A"
             const seychessRating = player.seychelles === "N/A" ? "N/A" : player.seychelles.toFixed(1);
 
+            // Determine medal based on rank
+            let medal = '';
+            if (player.rank === 1) {
+                medal = '🥇'; // Gold medal
+            } else if (player.rank === 2) {
+                medal = '🥈'; // Silver medal
+            } else if (player.rank === 3) {
+                medal = '🥉'; // Bronze medal
+            }
+
+            // Determine icons for best rapid, blitz, puzzle, and bullet scores
+            let rapidIcon = '';
+            let blitzIcon = '';
+            let puzzleIcon = '';
+            let bulletIcon = '';
+            if (player.rapid == bestRapid) {
+                rapidIcon = '⏱️'; // Stopwatch icon
+            }
+            if (player.blitz == bestBlitz) {
+                blitzIcon = '⚡'; // Lightning bolt icon
+            }
+            if (player.puzzle == bestPuzzle) {
+                puzzleIcon = '🧩'; // Puzzle piece icon
+            }
+            if (player.bullet == bestBullet) {
+                bulletIcon = '🚀'; // Rocket icon
+            }
+
             const row = `
                 <tr>
-                    <td>${player.rank}</td>
+                    <td>#${player.rank}</td>
                     <td class="avatar-cell">
                         <img 
                             src="${player.avatar}" 
@@ -150,12 +184,11 @@ function displayRankingsInChunks(rankings) {
                             class="avatar-img"
                             onerror="this.src='default-avatar.png';">
                     </td>
-                    <td><a href="https://www.chess.com/member/${player.username}" target="_blank">${player.username}</a></td>
+                    <td><a href="https://www.chess.com/member/${player.username}" target="_blank">${player.username}</a> ${medal} ${rapidIcon} ${blitzIcon} ${puzzleIcon} ${bulletIcon}</td>
                     <td>${player.puzzle === "N/A" ? "N/A" : player.puzzle}</td>
                     <td>${player.bullet === "N/A" ? "N/A" : player.bullet}</td>
                     <td>${player.blitz === "N/A" ? "N/A" : player.blitz}</td>
                     <td>${player.rapid === "N/A" ? "N/A" : player.rapid}</td>
-                    
                     <td class="default-average">${seychessRating}</td>
                 </tr>
             `;
@@ -262,16 +295,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hide all navbar contents initially
     navbarContents.forEach(content => content.classList.remove("active"));
 
+    // Set the "About" section as active by default
+    navbarItems[0].classList.add("active");
+    navbarContents[0].classList.add("active");
+
     navbarItems.forEach((item, index) => {
         item.addEventListener("click", () => {
-            const isActive = navbarItems[index].classList.contains("active");
             navbarItems.forEach(navItem => navItem.classList.remove("active"));
             navbarContents.forEach(content => content.classList.remove("active"));
 
-            if (!isActive) {
-                navbarItems[index].classList.add("active");
-                navbarContents[index].classList.add("active");
-            }
+            navbarItems[index].classList.add("active");
+            navbarContents[index].classList.add("active");
         });
     });
 });

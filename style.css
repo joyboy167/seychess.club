@@ -37,16 +37,24 @@ body {
   margin-bottom: 1rem; /* Adjusted to match the distance between subtitle and title */
 }
 
+/* Add a stylish font for the title */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 .title {
+  font-family: Arial, sans-serif; /* Revert to original font */
   font-size: 4rem;
   font-weight: bold;
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem; /* Increase margin below the title */
+  text-transform: none; /* Ensure the title is not in all caps */
 }
 
-.subtitle {
-  font-size: 1.4rem;
-  margin-top: 1rem;
+.curly-symbol {
+  font-family: Arial, sans-serif; /* Use a similar font as the subtitle */
+  font-size: 1.4rem; /* Use a similar size as the subtitle */
+  color: #fff;
+  margin-top: 1rem; /* Add space above the symbol */
+  margin-bottom: 1rem; /* Add space below the symbol */
 }
 
 /* Rankings Table Section */
@@ -107,6 +115,15 @@ body {
   text-align: center;
   border-bottom: 1px solid #222;
   border-right: 1px solid #444; /* Add right border to td cells */
+  height: 60px; /* Set a consistent height for all table cells */
+}
+
+.rankings-table td.username-cell {
+  text-align: center; /* Center align the username field */
+  padding-left: 0; /* Remove left padding */
+  display: inline-block; /* Revert to inline-block for default behavior */
+  vertical-align: middle; /* Center items vertically */
+  gap: 0; /* Remove gap */
 }
 
 .rankings-table tr:nth-child(even) {
@@ -239,7 +256,7 @@ body {
   margin-top: 1rem; /* Adjusted top margin to match the distance between subtitle and title */
   border-bottom: 2px solid #444; /* Add bottom border to navbar */
   flex-direction: row; /* Ensure navbar is horizontal by default */
-  max-width: 90%; /* Limit the width of the navbar */
+  max-width: 75%; /* Limit the width of the navbar to 75% of the hero section */
   margin-left: auto;
   margin-right: auto;
 }
@@ -254,6 +271,8 @@ body {
   font-weight: bold;
   color: #fff;
   position: relative; /* For separator positioning */
+  font-size: 1.4rem; /* Increase font size */
+  white-space: nowrap; /* Prevent text from wrapping into two lines */
 }
 
 .navbar-item::after {
@@ -273,6 +292,7 @@ body {
 
 .navbar-item.active {
   border-bottom: 2px solid #fff; /* Highlight active tab */
+  width: auto; /* Ensure the active item does not affect the navbar width */
 }
 
 .navbar-content {
@@ -282,6 +302,7 @@ body {
   background-color: transparent; /* Remove background color */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+  font-size: 1.4rem; /* Increase font size */
 }
 
 .navbar-content.active {
