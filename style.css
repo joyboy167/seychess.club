@@ -446,8 +446,8 @@ body {
 @media (max-width: 480px) {
   .hero-section {
       min-height: 100vh;
-      width: 100%; /* Full width */
-      max-width: 640px; /* Set max-width to match the table width */
+      width: 200%; /* Set width to 200% */
+      max-width: 670px; /* Set max-width to 670px */
       margin: 0 auto;
       padding: 0;
       display: flex;
@@ -472,6 +472,7 @@ body {
       width: auto; /* Auto width */
       text-align: center;
       padding: 0.5rem 0;
+      white-space: nowrap; /* Prevent text from wrapping into two lines */
   }
   .navbar-content {
       width: 100%; /* Full width */
@@ -486,7 +487,20 @@ body {
   }
   .rankings-table th,
   .rankings-table td {
-      padding: 0.3rem;
-      font-size: 0.7rem;
+      font-size: 0.7rem; /* Reduce font size for table */
+      white-space: nowrap; /* Prevent text from wrapping into two lines */
   }
+  .sort-box {
+      justify-content: flex-end; /* Right-align the search bar */
+      align
+  }
+}
+
+.footer a {
+    color: #00aaff; /* Lighter blue color */
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
