@@ -303,6 +303,10 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
   font-size: 1.4rem; /* Increase font size */
+  max-width: 75%; /* Set max width to 75% of the page */
+  margin-left: auto;
+  margin-right: auto;
+  white-space: pre-line; /* Preserve line breaks only */
 }
 
 .navbar-content.active {

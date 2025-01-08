@@ -66,9 +66,7 @@ function displayLoadingPlaceholders() {
 
 // Fetch current rankings from Chess.com
 async function fetchCurrentRankings() {
-    const rankings = [];
-
-    for (let player of players) {
+    const rankings = await Promise.all(players.map(async (player) => {
         try {
             let ratingData = { rapid: "N/A", blitz: "N/A", bullet: "N/A", puzzle: "N/A", seychelles: "N/A" };
             let avatar = "default-avatar.png"; // Fallback for missing avatars
@@ -76,15 +74,17 @@ async function fetchCurrentRankings() {
 
             // Fetch data from Chess.com
             if (player.platform === "chesscom") {
-                const profileRes = await fetch(`https://api.chess.com/pub/player/${player.username}`);
-                if (!profileRes.ok) throw new Error(`Failed to fetch profile for ${player.username}`);
+                const [profileRes, statsRes] = await Promise.all([
+                    fetch(`https://api.chess.com/pub/player/${player.username}`),
+                    fetch(`https://api.chess.com/pub/player/${player.username}/stats`)
+                ]);
+
+                if (!profileRes.ok || !statsRes.ok) throw new Error(`Failed to fetch data for ${player.username}`);
+
                 const profileData = await profileRes.json();
+                const statsData = await statsRes.json();
 
                 avatar = profileData.avatar || "default-avatar.png";
-
-                const statsRes = await fetch(`https://api.chess.com/pub/player/${player.username}/stats`);
-                if (!statsRes.ok) throw new Error(`Failed to fetch stats for ${player.username}`);
-                const statsData = await statsRes.json();
 
                 ratingData = {
                     puzzle: statsData.tactics?.highest?.rating || "N/A",
@@ -94,37 +94,38 @@ async function fetchCurrentRankings() {
                 };
             }
 
-            // Use 0 for calculation if value is N/A
-            const calculatedBullet = ratingData.bullet === "N/A" ? 0 : ratingData.bullet;
-            const calculatedBlitz = ratingData.blitz === "N/A" ? 0 : ratingData.blitz;
-            const calculatedRapid = ratingData.rapid === "N/A" ? 0 : ratingData.rapid;
-            const calculatedPuzzle = ratingData.puzzle === "N/A" ? 0 : ratingData.puzzle;
+            // Calculate the SEYCHESS rating
+            const seyChessRating = calculateSeyChessRating(ratingData);
 
-            // Calculate the SEYCHESS rating with the updated weighted formula
-            const seyChessRating = (calculatedBullet * 0.1) + (calculatedBlitz * 0.3) + (calculatedRapid * 0.5) + (calculatedPuzzle * 0.1);
-
-            // Push the processed data
-            rankings.push({
+            return {
                 name: realName,
                 username: player.username,
                 rank: 0,
                 platform: "Chess.com",
-                avatar: avatar,
-                puzzle: ratingData.puzzle,
-                bullet: ratingData.bullet,
-                blitz: ratingData.blitz,
-                rapid: ratingData.rapid,
+                avatar,
+                ...ratingData,
                 seychelles: seyChessRating
-            });
+            };
         } catch (error) {
             console.error(`Error processing ${player.username}:`, error);
+            return null; // Handle failure gracefully
         }
-    }
+    }));
 
-    rankings.sort((a, b) => b.seychelles - a.seychelles); // Sort by SEYCHESS rating
-    rankings.forEach((player, index) => (player.rank = index + 1));
+    // Sort rankings and assign ranks
+    return rankings.filter(Boolean).sort((a, b) => b.seychelles - a.seychelles).map((player, index) => ({
+        ...player,
+        rank: index + 1
+    }));
+}
 
-    return rankings;
+function calculateSeyChessRating({ bullet, blitz, rapid, puzzle }) {
+    const calculatedBullet = bullet === "N/A" ? 0 : bullet;
+    const calculatedBlitz = blitz === "N/A" ? 0 : blitz;
+    const calculatedRapid = rapid === "N/A" ? 0 : rapid;
+    const calculatedPuzzle = puzzle === "N/A" ? 0 : puzzle;
+
+    return (calculatedBullet * 0.1) + (calculatedBlitz * 0.3) + (calculatedRapid * 0.5) + (calculatedPuzzle * 0.1);
 }
 
 // Display rankings in the table in chunks
@@ -135,7 +136,6 @@ function displayRankingsInChunks(rankings) {
     const chunkSize = 4; // Number of rows to render at a time
     let currentIndex = 0;
 
-    // Find the best rapid, blitz, puzzle, and bullet scores
     const bestRapid = Math.max(...rankings.map(player => player.rapid === "N/A" ? 0 : player.rapid));
     const bestBlitz = Math.max(...rankings.map(player => player.blitz === "N/A" ? 0 : player.blitz));
     const bestPuzzle = Math.max(...rankings.map(player => player.puzzle === "N/A" ? 0 : player.puzzle));
@@ -144,46 +144,36 @@ function displayRankingsInChunks(rankings) {
     function renderChunk() {
         const chunk = rankings.slice(currentIndex, currentIndex + chunkSize);
         chunk.forEach(player => {
-            // Format SeyChess rating to 1 decimal place unless it's "N/A"
             const seychessRating = player.seychelles === "N/A" ? "N/A" : player.seychelles.toFixed(1);
 
-            // Determine medal based on rank
-            let medal = '';
-            let medalTooltip = '';
+            let medal = '', medalTooltip = '';
             if (player.rank === 1) {
-                medal = '🥇'; // Gold medal
+                medal = '🥇';
                 medalTooltip = 'Best Overall';
             } else if (player.rank === 2) {
-                medal = '🥈'; // Silver medal
+                medal = '🥈';
                 medalTooltip = '2nd Overall';
             } else if (player.rank === 3) {
-                medal = '🥉'; // Bronze medal
+                medal = '🥉';
                 medalTooltip = '3rd Overall';
             }
 
-            // Determine icons for best rapid, blitz, puzzle, and bullet scores
-            let rapidIcon = '';
-            let blitzIcon = '';
-            let puzzleIcon = '';
-            let bulletIcon = '';
-            let rapidTooltip = '';
-            let blitzTooltip = '';
-            let puzzleTooltip = '';
-            let bulletTooltip = '';
+            let rapidIcon = '', blitzIcon = '', puzzleIcon = '', bulletIcon = '';
+            let rapidTooltip = '', blitzTooltip = '', puzzleTooltip = '', bulletTooltip = '';
             if (player.rapid == bestRapid) {
-                rapidIcon = '⏱️'; // Stopwatch icon
+                rapidIcon = '⏱️';
                 rapidTooltip = 'Best Rapid';
             }
             if (player.blitz == bestBlitz) {
-                blitzIcon = '⚡'; // Lightning bolt icon
+                blitzIcon = '⚡';
                 blitzTooltip = 'Best Blitz';
             }
             if (player.puzzle == bestPuzzle) {
-                puzzleIcon = '🧩'; // Puzzle piece icon
+                puzzleIcon = '🧩';
                 puzzleTooltip = 'Best Puzzle';
             }
             if (player.bullet == bestBullet) {
-                bulletIcon = '🚀'; // Rocket icon
+                bulletIcon = '🚀';
                 bulletTooltip = 'Best Bullet';
             }
 
@@ -261,19 +251,16 @@ function highlightSortedColumn(columnIndex) {
     const headers = document.querySelectorAll(".rankings-table th");
     const rows = document.querySelectorAll(".rankings-table tbody tr");
 
-    // Remove the sorted-column class from all headers and cells
     headers.forEach(header => header.classList.remove("sorted-column"));
     rows.forEach(row => {
         Array.from(row.cells).forEach(cell => cell.classList.remove("sorted-column"));
     });
 
-    // Add the sorted-column class to the sorted header and cells
     headers[columnIndex].classList.add("sorted-column");
     rows.forEach(row => {
         row.cells[columnIndex].classList.add("sorted-column");
     });
 
-    // Ensure only one column is highlighted at a time
     if (document.querySelectorAll(".sorted-column").length > 1) {
         removeDefaultStyling();
     }
@@ -304,18 +291,15 @@ function sortTable(columnIndex, type, order) {
         }
     });
 
-    // Append sorted rows back to the table
     sortedRows.forEach(row => table.appendChild(row));
 }
 
+// Navbar functionality
 document.addEventListener("DOMContentLoaded", () => {
     const navbarItems = document.querySelectorAll(".navbar-item");
     const navbarContents = document.querySelectorAll(".navbar-content");
 
-    // Hide all navbar contents initially
     navbarContents.forEach(content => content.classList.remove("active"));
-
-    // Set the "About" section as active by default
     navbarItems[0].classList.add("active");
     navbarContents[0].classList.add("active");
 
