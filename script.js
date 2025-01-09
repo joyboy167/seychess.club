@@ -8,7 +8,8 @@ const players = [
     { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
     { username: "adam8991", platform: "chesscom", realName: "Adam Johnson" }, // New player added
     { username: "lauvalsez", platform: "chesscom", realName: "Laura Valsez" }, // New player added
-    { username: "seypanda", platform: "chesscom", realName: "New Player" } // New player added
+    { username: "seypanda", platform: "chesscom", realName: "New Player" }, // New player added
+    { username: "LC9797", platform: "chesscom", realName: "New Player" } // New player added
 ];
 
 let isFirstSort = true;
