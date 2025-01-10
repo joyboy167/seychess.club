@@ -21,7 +21,7 @@ body {
   z-index: 1; /* Ensure hero section stacks below tooltips */
   min-height: 80vh; /* Reduce the minimum height to decrease empty space */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, #000),
-              url('bg-image.jpg') no-repeat center center/cover;
+              url('./bg-image.jpg') no-repeat center center/cover; /* Adjusted path */
   background-size: cover; /* Fill the container */
   display: flex;
   align-items: center;
@@ -93,7 +93,6 @@ body {
   position: relative; /* Allow tooltip buttons to be positioned properly */
   border-right: 1px solid #444; /* Add right border to th cells */
   cursor: pointer; /* Add cursor pointer for sorting */
-  position: relative; /* Ensure sorting buttons are positioned correctly */
 }
 
 .sort-btn {
@@ -450,7 +449,7 @@ body {
 @media (max-width: 480px) {
   .hero-section {
       min-height: 100vh;
-      width: 200%; /* Set width to 200% */
+      width: 100%; /* Set width to 100% */
       max-width: 670px; /* Set max-width to 670px */
       margin: 0 auto;
       padding: 0;
@@ -496,7 +495,6 @@ body {
   }
   .sort-box {
       justify-content: flex-end; /* Right-align the search bar */
-      align
   }
 }
 
