@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/seychess.club/static/css/main.69c976a8.css",
-    "main.js": "/seychess.club/static/js/main.40cb867e.js",
-    "static/media/bg-image.jpg": "/seychess.club/static/media/bg-image.90903b128830c89e8ded.jpg",
-    "index.html": "/seychess.club/index.html",
-    "main.69c976a8.css.map": "/seychess.club/static/css/main.69c976a8.css.map",
-    "main.40cb867e.js.map": "/seychess.club/static/js/main.40cb867e.js.map"
+    "main.css": "/static/css/main.51c1f472.css",
+    "main.js": "/static/js/main.40cb867e.js",
+    "static/media/bg-image.jpg": "/static/media/bg-image.90903b128830c89e8ded.jpg",
+    "index.html": "/index.html",
+    "main.51c1f472.css.map": "/static/css/main.51c1f472.css.map",
+    "main.40cb867e.js.map": "/static/js/main.40cb867e.js.map"
   },
   "entrypoints": [
-    "static/css/main.69c976a8.css",
+    "static/css/main.51c1f472.css",
     "static/js/main.40cb867e.js"
   ]
 }
