@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const HeroSection = () => {
+const HeroSection = ({ onLogin }) => {
+    const [username, setUsername] = useState(localStorage.getItem('username') || '');
+    const [isLoggedIn, setIsLoggedIn] = useState(!!username);
+
     useEffect(() => {
         // Navbar functionality
         const navbarItems = document.querySelectorAll(".navbar-item");
@@ -21,9 +24,35 @@ const HeroSection = () => {
         });
     }, []);
 
+    const handleLogin = () => {
+        const inputUsername = prompt('Please enter your username:');
+        if (inputUsername) {
+            setUsername(inputUsername);
+            setIsLoggedIn(true);
+            localStorage.setItem('username', inputUsername);
+            onLogin(inputUsername); // Notify parent component of login
+        }
+    };
+
+    const handleLogout = () => {
+        setUsername('');
+        setIsLoggedIn(false);
+        localStorage.removeItem('username');
+        onLogin(''); // Notify parent component of logout
+    };
+
     return (
         <div className="hero-section">
             <div className="hero-content">
+                <div className="login-section">
+                    {isLoggedIn ? (
+                        <div>
+                            Hello, {username} <button onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <button onClick={handleLogin}>Login</button>
+                    )}
+                </div>
                 <h1 className="title">The Seychess Club.</h1>
                 <div className="navbar">
                     <div className="navbar-item active">About</div>

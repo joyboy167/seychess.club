@@ -14,7 +14,7 @@ const players = [
     { username: "LC9797", platform: "chesscom", realName: "New Player" }
 ];
 
-const RankingsTable = () => {
+const RankingsTable = ({ loggedInUsername }) => {
     const [rankings, setRankings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortConfig, setSortConfig] = useState({ key: 'seychelles', direction: 'desc' });
@@ -267,7 +267,7 @@ const RankingsTable = () => {
                                     }
 
                                     return (
-                                        <tr key={index}>
+                                        <tr key={index} className={player.username === loggedInUsername ? 'highlighted-row' : ''}>
                                             <td>#{player.rank}</td>
                                             <td className="avatar-cell">
                                                 <img src={player.avatar} alt={`${player.name}'s Avatar`} className="avatar-img" onError={(e) => e.target.src = 'default-avatar.png'} />

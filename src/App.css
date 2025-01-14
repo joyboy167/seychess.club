@@ -506,3 +506,32 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
+
+.login-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-section button {
+    background-color: #007BFF; /* Nice blue color */
+    color: white;
+    border: none;
+    padding: 5px 15px; /* Thinner vertically */
+    cursor: pointer;
+    border-radius: 20px; /* Rounded sides */
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-size: 0.9rem; /* Adjust font size */
+    text-transform: lowercase; /* Use small letters */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.login-section button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.highlighted-row {
+    border: 2px solid #007BFF; /* Blue border */
+    box-shadow: 0 0 10px #007BFF; /* Modern glow */
+}
