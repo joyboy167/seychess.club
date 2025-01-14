@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import CountUp from 'react-countup';
+import playerCompRatings from '../player-comp-ratings.json';
 
 // Player List: Include platform, username, and hardcoded real names
 const players = [
@@ -11,7 +13,9 @@ const players = [
     { username: "adam8991", platform: "chesscom", realName: "Adam Johnson" },
     { username: "lauvalsez", platform: "chesscom", realName: "Laura Valsez" },
     { username: "seypanda", platform: "chesscom", realName: "New Player" },
-    { username: "LC9797", platform: "chesscom", realName: "New Player" }
+    { username: "LC9797", platform: "chesscom", realName: "New Player" },
+    { username: "vidhyasahar11", platform: "chesscom", realName: "Vidhya Sahar" }, // New player added
+    { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" } // New player added
 ];
 
 const RankingsTable = ({ loggedInUsername }) => {
@@ -28,6 +32,12 @@ const RankingsTable = ({ loggedInUsername }) => {
             sortRankings(sortConfig.key, sortConfig.direction);
         }
     }, [sortConfig]);
+
+    useEffect(() => {
+        if (!loading) {
+            document.getElementById("rankings-table").scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [loading]);
 
     const fetchAndUpdateRankings = async () => {
         try {
@@ -64,7 +74,7 @@ const RankingsTable = ({ loggedInUsername }) => {
                     avatar = profileData.avatar || "default-avatar.png";
 
                     ratingData = {
-                        puzzle: statsData.tactics?.highest?.rating || "N/A",
+                        puzzle: statsData.tactics?.highest?.rating || "N/A", // Fetch highest puzzle rating ever
                         bullet: statsData.chess_bullet?.last?.rating || "N/A",
                         blitz: statsData.chess_blitz?.last?.rating || "N/A",
                         rapid: statsData.chess_rapid?.last?.rating || "N/A"
@@ -119,9 +129,18 @@ const RankingsTable = ({ loggedInUsername }) => {
     };
 
     const handleSort = (key) => {
-        setSortConfig({ key, direction: 'desc' });
-        document.getElementById("sort-order").value = "desc";
+        setSortConfig((prevConfig) => {
+            const newDirection = prevConfig.key === key && prevConfig.direction === 'desc' ? 'asc' : 'desc';
+            document.getElementById("sort-order").value = newDirection;
+            return { key, direction: newDirection };
+        });
         highlightSortedColumn(key);
+    };
+
+    const handleHeaderClick = (key, event) => {
+        if (!event.target.classList.contains('tooltip-btn')) {
+            handleSort(key);
+        }
     };
 
     const highlightSortedColumn = (key) => {
@@ -162,8 +181,26 @@ const RankingsTable = ({ loggedInUsername }) => {
         averageColumnCells.forEach(cell => cell.classList.remove("default-average"));
     };
 
+    const getChangeIndicator = (currentValue, previousValue, isRank = false, decimalPlaces = 0, duration = 2.13) => {
+        if (previousValue === "N/A" || currentValue === "N/A") return null;
+        const change = currentValue - previousValue;
+        if (change === 0) return null;
+        const arrow = (isRank ? change < 0 : change > 0) ? '▲' : '▼';
+        const color = (isRank ? change < 0 : change > 0) ? 'green' : 'red';
+        return (
+            <span className={`change-indicator ${change > 0 ? 'increase' : 'decrease'}`} style={{ color, fontWeight: 'bold' }}>
+                {arrow} <CountUp start={0} end={Math.abs(change)} duration={duration} decimals={decimalPlaces} />
+            </span>
+        );
+    };
+
+    const getPreviousRating = (username, key) => {
+        const player = playerCompRatings.players.find(p => p.username === username);
+        return player ? player[key] : "N/A";
+    };
+
     return (
-        <section className="rankings-section">
+        <section className="rankings-section" id="rankings-table">
             {loading ? (
                 <div>Loading...</div>
             ) : (
@@ -188,35 +225,35 @@ const RankingsTable = ({ loggedInUsername }) => {
                                 <th>RANK</th>
                                 <th>AVATAR</th>
                                 <th>USERNAME</th>
-                                <th>
+                                <th onClick={(e) => handleHeaderClick('puzzle', e)}>
                                     PUZZLE
                                     <button className="tooltip-btn" onClick={() => handleSort('puzzle')}>
-                                        <span className="tooltip-text">Rating for puzzle solving.</span>
+                                        <span className="tooltip-text">Highest ever puzzle rating (10% of AVG).</span>
                                         ?
                                     </button>
                                 </th>
-                                <th>
+                                <th onClick={(e) => handleHeaderClick('bullet', e)}>
                                     BULLET
                                     <button className="tooltip-btn" onClick={() => handleSort('bullet')}>
-                                        <span className="tooltip-text">Rating for fast-paced games under 3 minutes (5% of AVG).</span>
+                                        <span className="tooltip-text">Rating for fast-paced games under 3 minutes (10% of AVG).</span>
                                         ?
                                     </button>
                                 </th>
-                                <th>
+                                <th onClick={(e) => handleHeaderClick('blitz', e)}>
                                     BLITZ
                                     <button className="tooltip-btn" onClick={() => handleSort('blitz')}>
-                                        <span className="tooltip-text">Rating for games lasting 3–10 minutes (25% of AVG).</span>
+                                        <span className="tooltip-text">Rating for games lasting 3–10 minutes (30% of AVG).</span>
                                         ?
                                     </button>
                                 </th>
-                                <th>
+                                <th onClick={(e) => handleHeaderClick('rapid', e)}>
                                     RAPID
                                     <button className="tooltip-btn" onClick={() => handleSort('rapid')}>
-                                        <span className="tooltip-text">Rating for games lasting 10+ minutes (70% of AVG).</span>
+                                        <span className="tooltip-text">Rating for games lasting 10+ minutes (50% of AVG).</span>
                                         ?
                                     </button>
                                 </th>
-                                <th className="default-average">
+                                <th className="default-average" onClick={(e) => handleHeaderClick('seychelles', e)}>
                                     AVG. RATING
                                     <button className="tooltip-btn" onClick={() => handleSort('seychelles')}>
                                         <span className="tooltip-text">Average rating calculated using a weighted formula.</span>
@@ -229,6 +266,7 @@ const RankingsTable = ({ loggedInUsername }) => {
                             {rankings.length > 0 ? (
                                 rankings.map((player, index) => {
                                     const seychessRating = player.seychelles === "N/A" ? "N/A" : player.seychelles.toFixed(1);
+                                    const duration = 2.13; // Increase speed by 25%
 
                                     let medal = '', medalTooltip = '';
                                     if (player.rank === 1) {
@@ -266,9 +304,19 @@ const RankingsTable = ({ loggedInUsername }) => {
                                         bulletTooltip = 'Best Bullet';
                                     }
 
+                                    const previousRank = getPreviousRating(player.username, 'rank');
+                                    const previousPuzzle = getPreviousRating(player.username, 'puzzle');
+                                    const previousBullet = getPreviousRating(player.username, 'bullet');
+                                    const previousBlitz = getPreviousRating(player.username, 'blitz');
+                                    const previousRapid = getPreviousRating(player.username, 'rapid');
+                                    const previousAvgRating = getPreviousRating(player.username, 'avgRating');
+
                                     return (
                                         <tr key={index} className={player.username === loggedInUsername ? 'highlighted-row' : ''}>
-                                            <td>#{player.rank}</td>
+                                            <td>
+                                                #{player.rank}
+                                                {getChangeIndicator(player.rank, previousRank, true, 0, duration)}
+                                            </td>
                                             <td className="avatar-cell">
                                                 <img src={player.avatar} alt={`${player.name}'s Avatar`} className="avatar-img" onError={(e) => e.target.src = 'default-avatar.png'} />
                                             </td>
@@ -280,11 +328,26 @@ const RankingsTable = ({ loggedInUsername }) => {
                                                 <span className="tooltip">{puzzleIcon}<span className="tooltip-text">{puzzleTooltip}</span></span>
                                                 <span className="tooltip">{bulletIcon}<span className="tooltip-text">{bulletTooltip}</span></span>
                                             </td>
-                                            <td>{player.puzzle === "N/A" ? "N/A" : player.puzzle}</td>
-                                            <td>{player.bullet === "N/A" ? "N/A" : player.bullet}</td>
-                                            <td>{player.blitz === "N/A" ? "N/A" : player.blitz}</td>
-                                            <td>{player.rapid === "N/A" ? "N/A" : player.rapid}</td>
-                                            <td className="default-average">{seychessRating}</td>
+                                            <td>
+                                                {player.puzzle === "N/A" ? "N/A" : <CountUp start={0} end={player.puzzle} duration={duration} />}
+                                                {getChangeIndicator(player.puzzle, previousPuzzle, false, 0, duration)}
+                                            </td>
+                                            <td>
+                                                {player.bullet === "N/A" ? "N/A" : <CountUp start={0} end={player.bullet} duration={duration} />}
+                                                {getChangeIndicator(player.bullet, previousBullet, false, 0, duration)}
+                                            </td>
+                                            <td>
+                                                {player.blitz === "N/A" ? "N/A" : <CountUp start={0} end={player.blitz} duration={duration} />}
+                                                {getChangeIndicator(player.blitz, previousBlitz, false, 0, duration)}
+                                            </td>
+                                            <td>
+                                                {player.rapid === "N/A" ? "N/A" : <CountUp start={0} end={player.rapid} duration={duration} />}
+                                                {getChangeIndicator(player.rapid, previousRapid, false, 0, duration)}
+                                            </td>
+                                            <td className="default-average">
+                                                {seychessRating === "N/A" ? "N/A" : <CountUp start={0} end={parseFloat(seychessRating)} duration={duration} decimals={1} />}
+                                                {getChangeIndicator(seychessRating, previousAvgRating, false, 1, duration)}
+                                            </td>
                                         </tr>
                                     );
                                 })
@@ -295,6 +358,9 @@ const RankingsTable = ({ loggedInUsername }) => {
                             )}
                         </tbody>
                     </table>
+                    <div className="change-indicator-note">
+                        <span className="change-indicator increase">▲</span> <span className="change-indicator decrease">▼</span> indicate weekly change.
+                    </div>
                 </div>
             )}
         </section>
