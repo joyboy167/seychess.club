@@ -1,0 +1,113 @@
+{
+  "date": "2025-01-12",
+  "players": [
+    {
+      "rank": 1,
+      "username": "MinusE1",
+      "puzzle": 2561,
+      "bullet": "N/A",
+      "blitz": 1113,
+      "rapid": 1519,
+      "avgRating": 1349.5
+    },
+    {
+      "rank": 2,
+      "username": "lauvalsez",
+      "puzzle": 1920,
+      "bullet": 780,
+      "blitz": 965,
+      "rapid": 1215,
+      "avgRating": 1167.0
+    },
+    {
+      "rank": 3,
+      "username": "vidhyasahar11",
+      "puzzle": 868,
+      "bullet": "N/A",
+      "blitz": 933,
+      "rapid": 1130,
+      "avgRating": 931.7
+    },
+    {
+      "rank": 4,
+      "username": "adamo25",
+      "puzzle": 2000,
+      "bullet": 381,
+      "blitz": 742,
+      "rapid": 954,
+      "avgRating": 918.0
+    },
+    {
+      "rank": 5,
+      "username": "durupa",
+      "puzzle": 1885,
+      "bullet": 408,
+      "blitz": 569,
+      "rapid": 1000,
+      "avgRating": 928.5
+    },
+    {
+      "rank": 6,
+      "username": "adam8991",
+      "puzzle": 2008,
+      "bullet": "N/A",
+      "blitz": 600,
+      "rapid": 850,
+      "avgRating": 860.5
+    },
+    {
+      "rank": 7,
+      "username": "Mordecai_6",
+      "puzzle": 763,
+      "bullet": 668,
+      "blitz": 803,
+      "rapid": 845,
+      "avgRating": 806.5
+    },
+    {
+      "rank": 8,
+      "username": "seypanda",
+      "puzzle": 1076,
+      "bullet": 273,
+      "blitz": 995,
+      "rapid": 653,
+      "avgRating": 759.9
+    },
+    {
+      "rank": 9,
+      "username": "Buumpliz",
+      "puzzle": 1260,
+      "bullet": 418,
+      "blitz": 537,
+      "rapid": 747,
+      "avgRating": 702.4
+    },
+    {
+      "rank": 10,
+      "username": "Jeremy_Raguain",
+      "puzzle": 764,
+      "bullet": 250,
+      "blitz": 800,
+      "rapid": 674,
+      "avgRating": 696.5
+    },
+    {
+      "rank": 11,
+      "username": "LC9797",
+      "puzzle": 555,
+      "bullet": "N/A",
+      "blitz": 800,
+      "rapid": 296,
+      "avgRating": 451.5
+    },
+    {
+      "rank": 12,
+      "username": "barnabysadler",
+      "puzzle": 437,
+      "bullet": "N/A",
+      "blitz": 214,
+      "rapid": 317,
+      "avgRating": 330.0
+    }
+  ]
+}
