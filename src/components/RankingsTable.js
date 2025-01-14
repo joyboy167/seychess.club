@@ -358,8 +358,8 @@ const RankingsTable = ({ loggedInUsername }) => {
                             )}
                         </tbody>
                     </table>
-                    <div className="change-indicator-note">
-                        <span className="change-indicator increase">▲</span> <span className="change-indicator decrease">▼</span> indicate weekly change.
+                    <div className="change-indicator-note" style={{ textAlign: 'right' }}>
+                        <span className="change-indicator increase" style={{ color: 'green' }}>▲</span> <span className="change-indicator decrease" style={{ color: 'red' }}>▼</span> indicate weekly change.
                     </div>
                 </div>
             )}

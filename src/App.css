@@ -535,3 +535,14 @@ body {
     border: 2px solid #007BFF; /* Blue border */
     box-shadow: 0 0 10px #007BFF; /* Modern glow */
 }
+
+.change-indicator-note {
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 0.9rem; /* Set font size to match table font size */
+    color: #ddd;
+}
+
+.change-indicator-note .increase {
+    color: green;
+}
