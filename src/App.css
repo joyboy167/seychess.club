@@ -17,7 +17,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-  position: relative;
+  position: static; /* Ensure the parent element has a static position */
   z-index: 1; /* Ensure hero section stacks below tooltips */
   min-height: 80vh; /* Reduce the minimum height to decrease empty space */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, #000),
@@ -462,10 +462,10 @@ body {
       width: 100%; /* Full width */
   }
   .title {
-      font-size: 2rem;
+      font-size: 1.1rem; /* Increase font size by 10% */
   }
   .subtitle {
-      font-size: 0.8rem;
+      font-size: 0.44rem; /* Increase font size by 10% */
   }
   .navbar {
       flex-direction: row; /* Ensure navbar remains horizontal */
@@ -476,10 +476,12 @@ body {
       text-align: center;
       padding: 0.5rem 0;
       white-space: nowrap; /* Prevent text from wrapping into two lines */
+      font-size: 0.77rem; /* Increase font size by 10% */
   }
   .navbar-content {
       width: 100%; /* Full width */
       text-align: center;
+      font-size: 0.77rem; /* Increase font size by 10% */
   }
   .rankings-section {
       margin: 1rem auto;
@@ -490,11 +492,61 @@ body {
   }
   .rankings-table th,
   .rankings-table td {
-      font-size: 0.7rem; /* Reduce font size for table */
+      font-size: 0.4rem; /* Increase font size by 15% */
       white-space: nowrap; /* Prevent text from wrapping into two lines */
+      padding: 0; /* Remove padding */
   }
   .sort-box {
       justify-content: flex-end; /* Right-align the search bar */
+      font-size: 0.6rem; /* Reduce font size by 25% */
+  }
+  .sort-box label {
+      font-size: 0.675rem; /* Reduce font size by 10% */
+      vertical-align: middle; /* Vertically align with select boxes */
+  }
+  .sort-box select {
+      font-size: 0.45rem; /* Reduce font size by 25% */
+      vertical-align: middle; /* Vertically align with label */
+  }
+  .login-section {
+      font-size: 0.675rem; /* Reduce font size to 75% */
+  }
+  .login-section button {
+      font-size: 0.675rem; /* Reduce font size to 75% */
+      padding: 3.75px 11.25px; /* Adjust padding to 75% */
+  }
+  .footer-credit {
+      font-size: 0.45rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .developed-by {
+      font-size: 0.225rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .change-indicator-note {
+      font-size: 0.45rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .avatar-img {
+      width: 37.5px; /* Reduce width by 25% */
+      height: 37.5px; /* Reduce height by 25% */
+  }
+  .floating-button {
+      font-size: 0.5rem !important; /* Halve font size and ensure it overrides other styles */
+      padding: 5px 10px; /* Adjust padding */
+      width: auto; /* Auto width */
+      height: auto; /* Auto height */
+  }
+  .floating-button .chart-icon {
+      font-size: 0.6rem; /* Halve icon size */
+  }
+  .modal-content {
+      font-size: 0.5rem; /* Halve font size */
+  }
+  .overview-content h3,
+  .overview-content p,
+  .rating-box-title h4,
+  .recommendation-box h4,
+  .recommendation-box p,
+  .recommendation-box ul li {
+      font-size: 0.5rem; /* Halve font size */
   }
 }
 
@@ -545,4 +597,140 @@ body {
 
 .change-indicator-note .increase {
     color: green;
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    z-index: 10000; /* Ensure the button is in front of everything */
+    pointer-events: auto; /* Ensure the button can be interacted with */
+    display: flex; /* Ensure the button is displayed properly */
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    visibility: visible; /* Ensure the button is visible */
+    opacity: 1; /* Ensure the button is fully opaque */
+}
+
+.floating-button .chart-icon {
+    margin-left: 10px; /* Add space between text and icon */
+    font-size: 1.2rem; /* Adjust icon size */
+}
+
+/* Modal Styling */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10001; /* Ensure the modal is in front of everything */
+}
+
+.modal-content {
+    background-color: #111; /* Match table background color */
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Increase width to 90% */
+    max-width: 800px; /* Increase max-width to 800px */
+    text-align: left; /* Align text to the left */
+    color: #ddd; /* Match table text color */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Match table shadow */
+}
+
+.overview-content h3,
+.overview-content p {
+    text-align: left; /* Align text to the left */
+}
+
+.win {
+    color: green; /* Green color for wins */
+}
+
+.loss {
+    color: red; /* Red color for losses */
+}
+
+.draw {
+    color: white; /* White color for draws */
+}
+
+.rating-boxes {
+    display: flex;
+    justify-content: space-around; /* Space between the boxes */
+    margin-top: 20px;
+}
+
+.rating-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 20%;
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    display: flex;
+    flex-direction: column; /* Split vertically */
+    justify-content: space-between; /* Space between title and rating */
+}
+
+.rating-box-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Faint grey line */
+}
+
+.rating-box-rating {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-box p {
+    text-align: center; /* Center the rating number inside the box */
+}
+
+.change-indicator {
+    display: inline-block; /* Change to inline-block to be on the same line */
+    margin-left: 5px; /* Add some space between the rating and the indicator */
+    vertical-align: middle; /* Align vertically with the rating */
+}
+
+.rating-box.average-rating {
+    background-color: #f0f0f0; /* Softer white background */
+    color: #000; /* Black text */
+}
+
+.rating-box.average-rating .rating-box-title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Faint black line */
+}
+
+.recommendation-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left; /* Left align the title */
+    width: 100%; /* Take up the whole space below the last boxes */
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    margin-top: 20px; /* Add some space above the box */
 }
