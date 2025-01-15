@@ -146,7 +146,7 @@ const HeroSection = ({ onLogin }) => {
                     <h4>{label}</h4>
                 </div>
                 <div className="rating-box-rating">
-                    <p>{currentRating === "N/A" ? "N/A" : <CountUp start={0} end={currentRating} duration={2.13} />}</p>
+                    <p>{currentRating === "N/A" ? "N/A" : <CountUp start={0} end={currentRating} duration={2.13} decimals={isAverage ? 1 : 0} />}</p>
                     {changeIndicator}
                 </div>
             </div>
