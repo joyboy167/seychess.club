@@ -126,24 +126,21 @@ const HeroSection = ({ onLogin }) => {
     };
 
     const calculateAverageRating = () => {
-        const ratings = [
-            playerStats.tactics?.highest?.rating || 0,
-            playerStats.chess_bullet?.last?.rating || 0,
-            playerStats.chess_blitz?.last?.rating || 0,
-            playerStats.chess_rapid?.last?.rating || 0
-        ];
-        const validRatings = ratings.filter(rating => rating !== 0);
-        if (validRatings.length === 0) return "N/A";
-        const sum = validRatings.reduce((acc, rating) => acc + rating, 0);
-        return (sum / validRatings.length).toFixed(1);
+        const bulletRating = playerStats.chess_bullet?.last?.rating || 0;
+        const blitzRating = playerStats.chess_blitz?.last?.rating || 0;
+        const rapidRating = playerStats.chess_rapid?.last?.rating || 0;
+        const puzzleRating = playerStats.tactics?.highest?.rating || 0;
+
+        const weightedAverage = (bulletRating * 0.1) + (blitzRating * 0.3) + (rapidRating * 0.5) + (puzzleRating * 0.1);
+        return weightedAverage ? parseFloat(weightedAverage.toFixed(1)) : "N/A";
     };
 
     const renderRatingBox = (label, currentRating, previousRating, isAverage = false) => {
-        const changeIndicator = getChangeIndicator(currentRating, previousRating);
+        const changeIndicator = getChangeIndicator(currentRating, previousRating, isAverage);
         return (
             <div className={`rating-box ${isAverage ? 'average-rating' : ''}`}>
                 <div className="rating-box-title">
-                    <h4>{label}</h4>
+                    <h4>{label} {isAverage && <span className="chart-icon">📊</span>}</h4>
                 </div>
                 <div className="rating-box-rating">
                     <p>{currentRating === "N/A" ? "N/A" : <CountUp start={0} end={currentRating} duration={2.13} decimals={isAverage ? 1 : 0} />}</p>
@@ -153,7 +150,7 @@ const HeroSection = ({ onLogin }) => {
         );
     };
 
-    const getChangeIndicator = (currentValue, previousValue) => {
+    const getChangeIndicator = (currentValue, previousValue, isAverage = false) => {
         if (previousValue === "N/A" || currentValue === "N/A") return null;
         const change = currentValue - previousValue;
         if (change === 0) return null;
@@ -161,7 +158,7 @@ const HeroSection = ({ onLogin }) => {
         const color = change > 0 ? 'green' : 'red';
         return (
             <span className={`change-indicator ${change > 0 ? 'increase' : 'decrease'}`} style={{ color, fontWeight: 'bold' }}>
-                {arrow} {Math.abs(change)}
+                {arrow} {Math.abs(change).toFixed(isAverage ? 1 : 0)}
             </span>
         );
     };
