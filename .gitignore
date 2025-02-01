@@ -1,0 +1,40 @@
+# Node modules
+**/node_modules/
+
+# Environment files
+**/.env*
+!**/.env.example
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+**/build/
+**/dist/
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+
+# Dependency directories
+**/coverage/
+
+# Miscellaneous
+*.log
+*.lock
+
+# Frontend-specific
+**/.eslintcache
+**/.next/
+
+# Backend-specific
+**/migrations/
+**/*.sqlite
+**/.cache/

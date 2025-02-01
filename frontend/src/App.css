@@ -1,0 +1,815 @@
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll caused by any overflow */
+}
+
+/* Hero Section */
+.hero-section {
+  position: static; /* Ensure the parent element has a static position */
+  z-index: 1; /* Ensure hero section stacks below tooltips */
+  min-height: 80vh; /* Reduce the minimum height to decrease empty space */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 60%, #000),
+              url('./bg-image.jpg') no-repeat center center/cover; /* Adjusted path */
+  background-size: cover; /* Fill the container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  width: 100vw; /* Ensure full viewport width */
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove any padding */
+}
+
+.hero-content {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  padding: 0 1rem;
+  margin-bottom: 1rem; /* Adjusted to match the distance between subtitle and title */
+  width: 100vw !important; /* Ensure full viewport width, overriding all other styles */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Add a stylish font for the title */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.title {
+  font-family: Arial, sans-serif; /* Revert to original font */
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 2rem; /* Increase margin below the title */
+  text-transform: none; /* Ensure the title is not in all caps */
+}
+
+.curly-symbol {
+  font-family: Arial, sans-serif; /* Use a similar font as the subtitle */
+  font-size: 1.4rem; /* Use a similar size as the subtitle */
+  color: #fff;
+  margin-top: 1rem; /* Add space above the symbol */
+  margin-bottom: 1rem; /* Add space below the symbol */
+}
+
+/* Rankings Table Section */
+.rankings-section {
+  position: relative; /* Ensure tooltips stack properly */
+  width: 100%; /* Full width */
+  margin: 4rem auto;
+  padding: 0 1rem; /* Maintain black space around the table */
+  z-index: 2; /* Ensure tooltips appear above hero section */
+}
+
+.rankings-table {
+  width: 100%; /* Default full width for table */
+  border-collapse: collapse;
+  background-color: #111;
+  color: #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto; /* Center the table */
+  border-left: 1px solid #444; /* Add left border to table */
+  border-right: 1px solid #444; /* Add right border to table */
+}
+
+.rankings-table thead {
+  background-color: #1b1b1b;
+  color: #ffffff; /* Updated to bright white */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.rankings-table th {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #333;
+  position: relative; /* Allow tooltip buttons to be positioned properly */
+  border-right: 1px solid #444; /* Add right border to th cells */
+  cursor: pointer; /* Add cursor pointer for sorting */
+}
+
+.sort-btn {
+  background: none;
+  border: none;
+  color: #ddd;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  margin: 0;
+}
+
+.rankings-table td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #222;
+  border-right: 1px solid #444; /* Add right border to td cells */
+  height: 60px; /* Set a consistent height for all table cells */
+}
+
+.rankings-table td.username-cell {
+  text-align: center; /* Center align the username field */
+  padding-left: 0; /* Remove left padding */
+  display: inline-block; /* Revert to inline-block for default behavior */
+  vertical-align: middle; /* Center items vertically */
+  gap: 0; /* Remove gap */
+}
+
+.rankings-table tr:nth-child(even) {
+  background-color: #181818;
+}
+
+.rankings-table tr:hover {
+  background-color: #222;
+  transition: background-color 0.3s ease;
+}
+
+.rankings-table a {
+  color: #fff; /* Ensure links are white */
+  text-decoration: none; /* Remove underline */
+}
+
+.rankings-table a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Avatar Column Styling */
+.avatar-cell {
+  text-align: center;
+  vertical-align: middle; /* Center vertically in the cell */
+}
+
+/* Avatar Image Styling */
+.avatar-img {
+  width: 50px; /* Set width for avatar */
+  height: 50px; /* Set height for avatar */
+  border-radius: 50%; /* Make avatar circular */
+  object-fit: cover; /* Ensure image scales properly */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+  display: block; /* Ensure the image behaves like a block element */
+  margin: 0 auto; /* Center image inside the cell */
+}
+
+/* Loading Placeholders */
+.loading-placeholder {
+  background-color: #222; /* Dark background for placeholder rows */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.placeholder-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.placeholder-avatar {
+  width: 50px;
+  height: 50px;
+  background: #444;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.placeholder-text {
+  width: 60%;
+  height: 16px;
+  background: #444;
+  border-radius: 4px;
+}
+
+/* Pulsing effect for placeholders */
+@keyframes pulse {
+  0% {
+      background-color: #333;
+  }
+  50% {
+      background-color: #444;
+  }
+  100% {
+      background-color: #333;
+  }
+}
+
+/* Remove existing tooltip styles */
+.tooltip-btn {
+    position: relative;
+    border: 2px solid black; /* Black border */
+    background-color: grey; /* Grey fill */
+    cursor: pointer;
+    font-size: 0.5rem; /* Slightly smaller font size */
+    color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip-btn .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 125%; /* Position below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    width: 200px; /* Wider tooltip bubble */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip-btn:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.default-average .tooltip-btn {
+    background-color: grey; /* Grey fill like any other tooltip button */
+    color: #fff; /* White text */
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between items */
+  margin-top: 1rem; /* Adjusted top margin to match the distance between subtitle and title */
+  border-bottom: 2px solid #444; /* Add bottom border to navbar */
+  flex-direction: row; /* Ensure navbar is horizontal by default */
+  max-width: 75%; /* Limit the width of the navbar to 75% of the hero section */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  border-bottom: 2px solid transparent; /* Add bottom border for active state */
+  transition: border-bottom 0.3s ease;
+  font-weight: bold;
+  color: #fff;
+  position: relative; /* For separator positioning */
+  font-size: 1.4rem; /* Increase font size */
+  white-space: nowrap; /* Prevent text from wrapping into two lines */
+}
+
+.navbar-item::after {
+  content: "";
+  position: absolute;
+  right: -0.5rem; /* Adjusted to ensure alignment */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.3); /* Opaque separator */
+}
+
+.navbar-item:last-child::after {
+  display: none; /* Remove separator after the last item */
+}
+
+.navbar-item.active {
+  border-bottom: 2px solid #fff; /* Highlight active tab */
+  width: auto; /* Ensure the active item does not affect the navbar width */
+}
+
+.navbar-content {
+  display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: transparent; /* Remove background color */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+  font-size: 1.4rem; /* Increase font size */
+  max-width: 75%; /* Set max width to 75% of the page */
+  margin-left: auto;
+  margin-right: auto;
+  white-space: pre-line; /* Preserve line breaks only */
+}
+
+.navbar-content.active {
+  display: block;
+}
+
+.navbar-content a {
+  color: #00aaff; /* Lighter blue color for links */
+  text-decoration: underline; /* Underline the link */
+}
+
+.navbar-content a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Sort Box Styling */
+.sort-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.sort-box label {
+  margin-right: 0.5rem;
+  color: #ddd;
+}
+
+.sort-box select {
+  background-color: #111;
+  color: #ddd;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-left: 0.5rem;
+}
+
+/* Sorted Column Styling */
+.sorted-column {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border-bottom: 2px solid #000; /* Black border */
+  border-right: 1px solid #000; /* Black border */
+}
+
+.sorted-column .tooltip-btn {
+    background-color: white; /* White fill for sorted column tooltip */
+    color: black; /* Black text */
+    border: 2px solid black; /* Black border */
+}
+
+.default-column {
+  background-color: #333; /* Default background color */
+  color: #fff; /* Default text color */
+  border-bottom: 2px solid #00aaff; /* Default border color */
+}
+
+/* Default styling for the average rating column */
+.rankings-table th.default-average,
+.rankings-table td.default-average {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border-bottom: 2px solid #000; /* Black border */
+  border-right: 1px solid #000; /* Black border */
+}
+
+/* Tooltip Styling */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position the tooltip above the text */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Media Query for Tablets */
+@media (max-width: 768px) {
+  .hero-section {
+      min-height: 100vh;
+      width: 100%; /* Full width */
+      margin: 0 auto;
+      padding: 0;
+  }
+  .hero-content {
+      padding: 0 1rem;
+      width: 100%; /* Full width */
+  }
+  .title {
+      font-size: 2.5rem;
+  }
+  .subtitle {
+      font-size: 1rem;
+  }
+  .navbar {
+      flex-direction: row; /* Ensure navbar remains horizontal */
+      align-items: center;
+  }
+  .navbar-item {
+      width: auto; /* Auto width */
+      text-align: center;
+      padding: 0.5rem 0;
+  }
+  .navbar-content {
+      width: 100%; /* Full width */
+      text-align: center;
+  }
+  .rankings-section {
+      margin: 2rem auto;
+      padding: 0.5rem;
+  }
+  .rankings-table {
+      width: 100%; /* Full width */
+  }
+  .rankings-table th,
+  .rankings-table td {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+  }
+}
+
+/* Media Query for Phones */
+@media (max-width: 480px) {
+  .hero-section {
+      min-height: 100vh;
+      width: 100%; /* Set width to 100% */
+      max-width: 670px; /* Set max-width to 670px */
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center the content */
+  }
+  .hero-content {
+      padding: 0 1rem;
+      width: 100%; /* Full width */
+  }
+  .title {
+      font-size: 1.1rem; /* Increase font size by 10% */
+  }
+  .subtitle {
+      font-size: 0.44rem; /* Increase font size by 10% */
+  }
+  .navbar {
+      flex-direction: row; /* Ensure navbar remains horizontal */
+      align-items: center;
+  }
+  .navbar-item {
+      width: auto; /* Auto width */
+      text-align: center;
+      padding: 0.5rem 0;
+      white-space: nowrap; /* Prevent text from wrapping into two lines */
+      font-size: 0.77rem; /* Increase font size by 10% */
+  }
+  .navbar-content {
+      width: 100%; /* Full width */
+      text-align: center;
+      font-size: 0.77rem; /* Increase font size by 10% */
+  }
+  .rankings-section {
+      margin: 1rem auto;
+      padding: 0.5rem;
+  }
+  .rankings-table {
+      width: 100%; /* Full width */
+  }
+  .rankings-table th,
+  .rankings-table td {
+      font-size: 0.4rem; /* Increase font size by 15% */
+      white-space: nowrap; /* Prevent text from wrapping into two lines */
+      padding: 0; /* Remove padding */
+  }
+  .sort-box {
+      justify-content: flex-end; /* Right-align the search bar */
+      font-size: 0.6rem; /* Reduce font size by 25% */
+  }
+  .sort-box label {
+      font-size: 0.675rem; /* Reduce font size by 10% */
+      vertical-align: middle; /* Vertically align with select boxes */
+  }
+  .sort-box select {
+      font-size: 0.45rem; /* Reduce font size by 25% */
+      vertical-align: middle; /* Vertically align with label */
+  }
+  .login-section {
+      font-size: 0.675rem; /* Reduce font size to 75% */
+  }
+  .login-section button {
+      font-size: 0.675rem; /* Reduce font size to 75% */
+      padding: 3.75px 11.25px; /* Adjust padding to 75% */
+  }
+  .footer-credit {
+      font-size: 0.45rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .developed-by {
+      font-size: 0.225rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .change-indicator-note {
+      font-size: 0.45rem !important; /* Halve font size and ensure it overrides other styles */
+  }
+  .avatar-img {
+      width: 37.5px; /* Reduce width by 25% */
+      height: 37.5px; /* Reduce height by 25% */
+  }
+  .floating-button {
+      font-size: 0.5rem !important; /* Halve font size and ensure it overrides other styles */
+      padding: 5px 10px; /* Adjust padding */
+      width: auto; /* Auto width */
+      height: auto; /* Auto height */
+  }
+  .floating-button .chart-icon {
+      font-size: 0.6rem; /* Halve icon size */
+  }
+  .modal-content {
+      font-size: 0.5rem; /* Halve font size */
+  }
+  .overview-content h3,
+  .overview-content p,
+  .rating-box-title h4,
+  .recommendation-box h4,
+  .recommendation-box p,
+  .recommendation-box ul li {
+      font-size: 0.5rem; /* Halve font size */
+  }
+}
+
+.footer a {
+    color: #00aaff; /* Lighter blue color */
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.login-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-section button {
+    background-color: #007BFF; /* Nice blue color */
+    color: white;
+    border: none;
+    padding: 5px 15px; /* Thinner vertically */
+    cursor: pointer;
+    border-radius: 20px; /* Rounded sides */
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-size: 0.9rem; /* Adjust font size */
+    text-transform: lowercase; /* Use small letters */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.login-section button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.highlighted-row {
+    border: 2px solid #007BFF; /* Blue border */
+    box-shadow: 0 0 10px #007BFF; /* Modern glow */
+}
+
+.change-indicator-note {
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 0.9rem; /* Set font size to match table font size */
+    color: #ddd;
+}
+
+.change-indicator-note .increase {
+    color: green;
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    z-index: 10000; /* Ensure the button is in front of everything */
+    pointer-events: auto; /* Ensure the button can be interacted with */
+    display: flex; /* Ensure the button is displayed properly */
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    visibility: visible; /* Ensure the button is visible */
+    opacity: 1; /* Ensure the button is fully opaque */
+}
+
+.floating-button .chart-icon {
+    margin-left: 10px; /* Add space between text and icon */
+    font-size: 1.2rem; /* Adjust icon size */
+}
+
+/* Modal Styling */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10001; /* Ensure the modal is in front of everything */
+}
+
+.modal-content {
+    background-color: #111; /* Match table background color */
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Increase width to 90% */
+    max-width: 800px; /* Increase max-width to 800px */
+    text-align: left; /* Align text to the left */
+    color: #ddd; /* Match table text color */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Match table shadow */
+}
+
+.overview-content h3,
+.overview-content p {
+    text-align: left; /* Align text to the left */
+}
+
+.win {
+    color: green; /* Green color for wins */
+}
+
+.loss {
+    color: red; /* Red color for losses */
+}
+
+.draw {
+    color: white; /* White color for draws */
+}
+
+.rating-boxes {
+    display: flex;
+    justify-content: space-around; /* Space between the boxes */
+    margin-top: 20px;
+}
+
+.rating-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 20%;
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    display: flex;
+    flex-direction: column; /* Split vertically */
+    justify-content: space-between; /* Space between title and rating */
+}
+
+.rating-box-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Faint grey line */
+}
+
+.rating-box-rating {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-box p {
+    text-align: center; /* Center the rating number inside the box */
+}
+
+.change-indicator {
+    display: inline-block; /* Change to inline-block to be on the same line */
+    margin-left: 5px; /* Add some space between the rating and the indicator */
+    vertical-align: middle; /* Align vertically with the rating */
+}
+
+.rating-box.average-rating {
+    background-color: #f0f0f0; /* Softer white background */
+    color: #000; /* Black text */
+}
+
+.rating-box.average-rating .rating-box-title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Faint black line */
+}
+
+.recommendation-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left; /* Left align the title */
+    width: 100%; /* Take up the whole space below the last boxes */
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    margin-top: 20px; /* Add some space above the box */
+}
+
+/* Login Box Styling */
+.login-box {
+    display: flex;
+    align-items: center;
+    background-color: #000; /* Black background */
+    padding: 5px; /* Very thin padding */
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Thinner shadow */
+    position: relative;
+    overflow: hidden;
+}
+
+.user-icon {
+    color: #007BFF;
+    margin-right: 5px; /* Reduce margin */
+    z-index: 1;
+}
+
+.login-box input {
+    background-color: #333; /* Darker background for input */
+    border: none; /* Remove default border */
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 5px; /* Reduce margin */
+    outline: none;
+    z-index: 1;
+    box-shadow: inset 0 0 0 1px #000; /* Thin black frame */
+}
+
+.login-box input::placeholder {
+    color: #bbb;
+    text-transform: lowercase; /* Make placeholder text small letters */
+    content: 'enter username'; /* Update placeholder text */
+}
+
+.login-box input::placeholder {
+    color: #bbb;
+    text-transform: lowercase; /* Make placeholder text small letters */
+    content: 'enter username'; /* Update placeholder text */
+}
+
+.footer-credit {
+    font-size: 0.9rem; /* Set font size to match table font size */
+    color: #ddd;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.developed-by {
+    font-size: 0.45rem; /* Halve font size */
+    color: #ddd;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Admin Toggle Button */
+.admin-toggle-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  width: auto; /* Ensure the button is not as wide as the whole screen */
+}
+
+.admin-toggle-button:hover {
+  background-color: #0056b3;
+}
