@@ -22,7 +22,7 @@ const players = [
 const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     const [rankings, setRankings] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortConfig, setSortConfig] = useState({ key: 'seychelles', direction: 'desc' });
+    const [sortConfig, setSortConfig] = useState({ key: 'avgRating', direction: 'desc' });
     const [compRatings, setCompRatings] = useState([]);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     const fetchCurrentRankings = async () => {
         const rankings = await Promise.all(players.map(async (player) => {
             try {
-                let ratingData = { rapid: "N/A", blitz: "N/A", bullet: "N/A", puzzle: "N/A", seychelles: "N/A" };
+                let ratingData = { rapid: "N/A", blitz: "N/A", bullet: "N/A", puzzle: "N/A", avgRating: "N/A" };
                 let avatar = blankDp; // Use blank-dp.svg as the default avatar
                 let realName = player.realName;
 
@@ -95,8 +95,8 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                     };
                 }
 
-                // Calculate the SEYCHESS rating
-                const seyChessRating = calculateSeyChessRating(ratingData);
+                // Calculate the average rating
+                const avgRating = calculateAvgRating(ratingData);
 
                 return {
                     name: realName,
@@ -105,7 +105,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                     platform: "Chess.com",
                     avatar,
                     ...ratingData,
-                    seychelles: seyChessRating
+                    avgRating
                 };
             } catch (error) {
                 console.error(`Error processing ${player.username}:`, error);
@@ -114,13 +114,13 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         }));
 
         // Sort rankings and assign ranks
-        return rankings.filter(Boolean).sort((a, b) => b.seychelles - a.seychelles).map((player, index) => ({
+        return rankings.filter(Boolean).sort((a, b) => b.avgRating - a.avgRating).map((player, index) => ({
             ...player,
             rank: index + 1
         }));
     };
 
-    const calculateSeyChessRating = ({ bullet, blitz, rapid, puzzle }) => {
+    const calculateAvgRating = ({ bullet, blitz, rapid, puzzle }) => {
         const calculatedBullet = bullet === "N/A" ? 0 : bullet;
         const calculatedBlitz = blitz === "N/A" ? 0 : blitz;
         const calculatedRapid = rapid === "N/A" ? 0 : rapid;
@@ -166,7 +166,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
             'bullet': 4,
             'blitz': 5,
             'rapid': 6,
-            'seychelles': 7
+            'avgRating': 7
         }[key];
 
         const headers = document.querySelectorAll(".rankings-table th");
@@ -259,7 +259,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                             <option value="bullet">Bullet</option>
                             <option value="blitz">Blitz</option>
                             <option value="rapid">Rapid</option>
-                            <option value="seychelles" selected>Average Rating</option>
+                            <option value="avgRating" selected>Average Rating</option>
                         </select>
                         <select id="sort-order" onChange={(e) => setSortConfig({ ...sortConfig, direction: e.target.value })}>
                             <option value="asc">Ascending</option>
@@ -300,9 +300,9 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                         ?
                                     </button>
                                 </th>
-                                <th className="default-average" onClick={(e) => handleHeaderClick('seychelles', e)}>
+                                <th className="default-average" onClick={(e) => handleHeaderClick('avgRating', e)}>
                                     AVG. RATING
-                                    <button className="tooltip-btn" onClick={() => handleSort('seychelles')}>
+                                    <button className="tooltip-btn" onClick={() => handleSort('avgRating')}>
                                         <span className="tooltip-text">Average rating calculated using a weighted formula.</span>
                                         ?
                                     </button>
@@ -312,7 +312,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                         <tbody>
                             {rankings.length > 0 ? (
                                 rankings.map((player, index) => {
-                                    const seychessRating = player.seychelles === "N/A" ? "N/A" : player.seychelles.toFixed(1);
+                                    const avgRating = player.avgRating === "N/A" ? "N/A" : player.avgRating.toFixed(1);
                                     const duration = 2.13; // Increase speed by 25%
 
                                     let medal = '', medalTooltip = '';
@@ -422,13 +422,13 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                                 )}
                                             </td>
                                             <td className="default-average">
-                                                {seychessRating === "N/A" ? "N/A" : <CountUp start={0} end={parseFloat(seychessRating)} duration={duration} decimals={1} />}
-                                                {getChangeIndicator(seychessRating, getPreviousRating(player.username, 'avgRating'), false, 1, duration)}
+                                                {avgRating === "N/A" ? "N/A" : <CountUp start={0} end={parseFloat(avgRating)} duration={duration} decimals={1} />}
+                                                {getChangeIndicator(avgRating, getPreviousRating(player.username, 'avgRating'), false, 1, duration)}
                                                 {isAdminMode && (
                                                     <input
                                                         type="number"
-                                                        value={baseline.seychelles || seychessRating}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'seychelles', e.target.value)}
+                                                        value={baseline.avgRating || avgRating}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'avgRating', e.target.value)}
                                                     />
                                                 )}
                                             </td>
