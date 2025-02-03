@@ -327,8 +327,32 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                         medalTooltip = '3rd Overall';
                                     }
 
+                                    const bestRapid = Math.max(...rankings.map(p => p.rapid === "N/A" ? 0 : p.rapid));
+                                    const bestBlitz = Math.max(...rankings.map(p => p.blitz === "N/A" ? 0 : p.blitz));
+                                    const bestPuzzle = Math.max(...rankings.map(p => p.puzzle === "N/A" ? 0 : p.puzzle));
+                                    const bestBullet = Math.max(...rankings.map(p => p.bullet === "N/A" ? 0 : p.bullet));
+
+                                    let rapidIcon = '', blitzIcon = '', puzzleIcon = '', bulletIcon = '';
+                                    let rapidTooltip = '', blitzTooltip = '', puzzleTooltip = '', bulletTooltip = '';
+                                    if (player.rapid == bestRapid) {
+                                        rapidIcon = '⏱️';
+                                        rapidTooltip = 'Best Rapid';
+                                    }
+                                    if (player.blitz == bestBlitz) {
+                                        blitzIcon = '⚡';
+                                        blitzTooltip = 'Best Blitz';
+                                    }
+                                    if (player.puzzle == bestPuzzle) {
+                                        puzzleIcon = '🧩';
+                                        puzzleTooltip = 'Best Puzzle';
+                                    }
+                                    if (player.bullet == bestBullet) {
+                                        bulletIcon = '🚀';
+                                        bulletTooltip = 'Best Bullet';
+                                    }
+
                                     return (
-                                        <tr key={index}>
+                                        <tr key={index} className={player.username === loggedInUsername ? 'highlighted-row' : ''}>
                                             <td>
                                                 #{player.rank}
                                                 {getChangeIndicator(player.rank, getPreviousRating(player.username, 'rank'), true, 0, duration)}
@@ -339,6 +363,10 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                             <td>
                                                 <a href={`https://www.chess.com/member/${player.username}`} target="_blank" rel="noopener noreferrer">{player.username}</a>
                                                 <span className="tooltip">{medal}<span className="tooltip-text">{medalTooltip}</span></span>
+                                                <span className="tooltip">{rapidIcon}<span className="tooltip-text">{rapidTooltip}</span></span>
+                                                <span className="tooltip">{blitzIcon}<span className="tooltip-text">{blitzTooltip}</span></span>
+                                                <span className="tooltip">{puzzleIcon}<span className="tooltip-text">{puzzleTooltip}</span></span>
+                                                <span className="tooltip">{bulletIcon}<span className="tooltip-text">{bulletTooltip}</span></span>
                                             </td>
                                             <td>
                                                 {player.puzzle === "N/A" ? "N/A" : <CountUp start={0} end={player.puzzle} duration={duration} />}
