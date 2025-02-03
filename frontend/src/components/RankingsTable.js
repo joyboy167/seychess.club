@@ -228,6 +228,10 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         }
     };
 
+    const syncBaseline = (username, key, value) => {
+        handleCompRatingChange(username, key, value);
+    };
+
     const updateBaselineData = async (updatedData) => {
         try {
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/baselines`, {
@@ -359,11 +363,15 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                                 #{player.rank}
                                                 {getChangeIndicator(player.rank, getPreviousRating(player.username, 'rank'), true, 0, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.rank || player.rank}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'rank', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.rank || player.rank}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'rank', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'rank', player.rank)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                             <td className="avatar-cell">
@@ -381,55 +389,75 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                                 {player.puzzle === "N/A" ? "N/A" : <CountUp start={0} end={player.puzzle} duration={duration} />}
                                                 {getChangeIndicator(player.puzzle, getPreviousRating(player.username, 'puzzle'), false, 0, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.puzzle || player.puzzle}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'puzzle', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.puzzle || player.puzzle}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'puzzle', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'puzzle', player.puzzle)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                             <td>
                                                 {player.bullet === "N/A" ? "N/A" : <CountUp start={0} end={player.bullet} duration={duration} />}
                                                 {getChangeIndicator(player.bullet, getPreviousRating(player.username, 'bullet'), false, 0, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.bullet || player.bullet}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'bullet', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.bullet || player.bullet}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'bullet', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'bullet', player.bullet)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                             <td>
                                                 {player.blitz === "N/A" ? "N/A" : <CountUp start={0} end={player.blitz} duration={duration} />}
                                                 {getChangeIndicator(player.blitz, getPreviousRating(player.username, 'blitz'), false, 0, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.blitz || player.blitz}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'blitz', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.blitz || player.blitz}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'blitz', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'blitz', player.blitz)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                             <td>
                                                 {player.rapid === "N/A" ? "N/A" : <CountUp start={0} end={player.rapid} duration={duration} />}
                                                 {getChangeIndicator(player.rapid, getPreviousRating(player.username, 'rapid'), false, 0, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.rapid || player.rapid}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'rapid', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.rapid || player.rapid}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'rapid', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'rapid', player.rapid)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                             <td className="default-average">
                                                 {avgRating === "N/A" ? "N/A" : <CountUp start={0} end={parseFloat(avgRating)} duration={duration} decimals={1} />}
                                                 {getChangeIndicator(avgRating, getPreviousRating(player.username, 'avgRating'), false, 1, duration)}
                                                 {isAdminMode && (
-                                                    <input
-                                                        type="number"
-                                                        value={baseline.avgRating || avgRating}
-                                                        onChange={(e) => handleCompRatingChange(player.username, 'avgRating', e.target.value)}
-                                                    />
+                                                    <>
+                                                        <input
+                                                            type="number"
+                                                            value={baseline.avgRating || avgRating}
+                                                            onChange={(e) => handleCompRatingChange(player.username, 'avgRating', e.target.value)}
+                                                            style={{ width: '25%' }}
+                                                        />
+                                                        <button className="sync-button" onClick={() => syncBaseline(player.username, 'avgRating', avgRating)}>sync</button>
+                                                    </>
                                                 )}
                                             </td>
                                         </tr>
