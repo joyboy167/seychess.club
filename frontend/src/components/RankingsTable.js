@@ -351,11 +351,20 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                         bulletTooltip = 'Best Bullet';
                                     }
 
+                                    const baseline = compRatings.find(p => p.username === player.username) || {};
+
                                     return (
                                         <tr key={index} className={player.username === loggedInUsername ? 'highlighted-row' : ''}>
                                             <td>
                                                 #{player.rank}
                                                 {getChangeIndicator(player.rank, getPreviousRating(player.username, 'rank'), true, 0, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.rank || player.rank}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'rank', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                             <td className="avatar-cell">
                                                 <img src={player.avatar} alt={`${player.name}'s Avatar`} className="avatar-img" />
@@ -371,22 +380,57 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                                             <td>
                                                 {player.puzzle === "N/A" ? "N/A" : <CountUp start={0} end={player.puzzle} duration={duration} />}
                                                 {getChangeIndicator(player.puzzle, getPreviousRating(player.username, 'puzzle'), false, 0, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.puzzle || player.puzzle}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'puzzle', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                             <td>
                                                 {player.bullet === "N/A" ? "N/A" : <CountUp start={0} end={player.bullet} duration={duration} />}
                                                 {getChangeIndicator(player.bullet, getPreviousRating(player.username, 'bullet'), false, 0, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.bullet || player.bullet}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'bullet', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                             <td>
                                                 {player.blitz === "N/A" ? "N/A" : <CountUp start={0} end={player.blitz} duration={duration} />}
                                                 {getChangeIndicator(player.blitz, getPreviousRating(player.username, 'blitz'), false, 0, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.blitz || player.blitz}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'blitz', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                             <td>
                                                 {player.rapid === "N/A" ? "N/A" : <CountUp start={0} end={player.rapid} duration={duration} />}
                                                 {getChangeIndicator(player.rapid, getPreviousRating(player.username, 'rapid'), false, 0, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.rapid || player.rapid}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'rapid', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                             <td className="default-average">
                                                 {seychessRating === "N/A" ? "N/A" : <CountUp start={0} end={parseFloat(seychessRating)} duration={duration} decimals={1} />}
                                                 {getChangeIndicator(seychessRating, getPreviousRating(player.username, 'avgRating'), false, 1, duration)}
+                                                {isAdminMode && (
+                                                    <input
+                                                        type="number"
+                                                        value={baseline.seychelles || seychessRating}
+                                                        onChange={(e) => handleCompRatingChange(player.username, 'seychelles', e.target.value)}
+                                                    />
+                                                )}
                                             </td>
                                         </tr>
                                     );
