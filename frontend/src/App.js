@@ -17,9 +17,20 @@ const App = () => {
     };
 
     useEffect(() => {
-        // Log environment variables to check if they are being read correctly
-        console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
-        console.log('Frontend URL:', process.env.REACT_APP_FRONTEND_URL);
+        // Log environment variables to ensure they are loaded
+        console.log('Environment Variables Check:');
+        console.log('REACT_APP_BACKEND_URL:', process.env.REACT_APP_BACKEND_URL || 'Undefined');
+        console.log('REACT_APP_FRONTEND_URL:', process.env.REACT_APP_FRONTEND_URL || 'Undefined');
+
+        // Test API call (optional, remove or modify as needed)
+        if (process.env.REACT_APP_BACKEND_URL) {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/test`)
+                .then((response) => response.json())
+                .then((data) => console.log('API Test Response:', data))
+                .catch((error) => console.error('Error during API fetch:', error));
+        } else {
+            console.error('REACT_APP_BACKEND_URL is not set, cannot fetch API data.');
+        }
     }, []);
 
     return (
