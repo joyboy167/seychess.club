@@ -16,6 +16,15 @@ PUSHED.
 
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
-(04/02/2025)
+(05/02/2025)
 
-we should look into the whole cache thing, to see if i can do better than i do now. 
+i tried to change the frontend function to speed up the change indidactor load (done)
+
+PUSHED. (I think it seems to work.)
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+(06/02/2025)
+
+the next thing i want to work on is stuff that i could impliment for seychess saturday. 
+like a tournament signup form. 
