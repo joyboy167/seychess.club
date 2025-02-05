@@ -26,7 +26,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     const [compRatings, setCompRatings] = useState([]);
 
     useEffect(() => {
-        fetchAndUpdateRankings();
+        fetchRankingsAndBaselines();
     }, []);
 
     useEffect(() => {
@@ -41,28 +41,24 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         }
     }, [loading]);
 
-    const fetchAndUpdateRankings = async () => {
-        try {
-            setLoading(true);
-            const currentRankings = await fetchCurrentRankings();
-            setRankings(currentRankings);
-        } catch (error) {
-            console.error("Error fetching or updating rankings:", error);
-            setRankings([]); // Fallback to an empty array on error
-        } finally {
-            setLoading(false);
-        }
+    const fetchRankingsAndBaselines = async () => {
+        setLoading(true);
+        const rankingsPromise = fetchCurrentRankings();
+        const baselinesPromise = fetchBaselines();
 
-        // Fetch baseline data for change indicators
         try {
-            const baselineData = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/baselines`).then(res => res.json());
+            const [currentRankings, baselineData] = await Promise.all([rankingsPromise, baselinesPromise]);
+            setRankings(currentRankings);
             if (baselineData.success) {
                 setCompRatings(baselineData.data);
             } else {
                 console.error('Failed to fetch baseline data:', baselineData.message);
             }
         } catch (error) {
-            console.error('Error fetching baseline data:', error);
+            console.error("Error fetching rankings or baselines:", error);
+            setRankings([]); // Fallback to an empty array on error
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -118,6 +114,16 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
             ...player,
             rank: index + 1
         }));
+    };
+
+    const fetchBaselines = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/baselines`);
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching baseline data:', error);
+            return { success: false, data: [] };
+        }
     };
 
     const calculateAvgRating = ({ bullet, blitz, rapid, puzzle }) => {
