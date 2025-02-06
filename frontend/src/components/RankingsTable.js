@@ -212,9 +212,6 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     };
 
     const getChangeIndicator = (currentValue, previousValue, isRank = false, decimalPlaces = 0, duration = 2.13) => {
-        if (loadingIndicators) {
-            return <span className="loading-placeholder">Loading...</span>;
-        }
         if (previousValue === "N/A" || currentValue === "N/A") return null;
         const change = currentValue - previousValue;
         if (change === 0) return null;
