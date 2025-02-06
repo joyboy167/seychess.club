@@ -25,6 +25,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     const [loading, setLoading] = useState(true);
     const [sortConfig, setSortConfig] = useState({ key: 'avgRating', direction: 'desc' });
     const [compRatings, setCompRatings] = useState([]);
+    const [loadingIndicators, setLoadingIndicators] = useState(true);
 
     useEffect(() => {
         fetchRankingsAndBaselines();
@@ -48,18 +49,26 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         const baselinesPromise = fetchBaselines();
 
         try {
-            const [currentRankings, baselineData] = await Promise.all([rankingsPromise, baselinesPromise]);
+            const currentRankings = await rankingsPromise;
             setRankings(currentRankings);
+        } catch (error) {
+            console.error("Error fetching rankings:", error);
+            setRankings([]); // Fallback to an empty array on error
+        } finally {
+            setLoading(false);
+        }
+
+        try {
+            const baselineData = await baselinesPromise;
             if (baselineData.success) {
                 setCompRatings(baselineData.data);
             } else {
                 console.error('Failed to fetch baseline data:', baselineData.message);
             }
         } catch (error) {
-            console.error("Error fetching rankings or baselines:", error);
-            setRankings([]); // Fallback to an empty array on error
+            console.error('Error fetching baseline data:', error);
         } finally {
-            setLoading(false);
+            setLoadingIndicators(false);
         }
     };
 
@@ -203,6 +212,9 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
     };
 
     const getChangeIndicator = (currentValue, previousValue, isRank = false, decimalPlaces = 0, duration = 2.13) => {
+        if (loadingIndicators) {
+            return <span className="loading-placeholder">Loading...</span>;
+        }
         if (previousValue === "N/A" || currentValue === "N/A") return null;
         const change = currentValue - previousValue;
         if (change === 0) return null;
