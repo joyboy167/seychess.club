@@ -31,8 +31,13 @@ still tweaking the loading, trying a new approach. (done)
 
 PUSHED.
 
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
 added viswara, adn did his baselines. (done) 
 
 PUSHED. 
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+(08/02/2025)
+
+Rewrite some of the devlogs.
+Add Naveen.  
