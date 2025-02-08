@@ -10,7 +10,7 @@ const players = [
     { username: "Jeremy_Raguain", platform: "chesscom", realName: "Jeremy Raguain" },
     { username: "Buumpliz", platform: "chesscom", realName: "Alex Jovanovic" },
     { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
-    { username: "adam8991", platform: "chesscom", realName: "Adam Johnson" },
+    { username: "adam8991", platform: "chesscom", realName: "Adam Afif" },
     { username: "lauvalsez", platform: "chesscom", realName: "Laura Valsez" },
     { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" }, // Updated real name
     { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" }, // Updated real name
@@ -18,7 +18,8 @@ const players = [
     { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" }, // New player added
     { username: "Seenu29", platform: "chesscom", realName: "Seenu" }, // New player added
     { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" }, // New player added
-    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" } // New player added
+    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" }, // New player added
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" } // New player added
 ];
 
 const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
