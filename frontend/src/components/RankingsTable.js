@@ -46,16 +46,31 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
 
     const fetchRankingsAndBaselines = async () => {
         setLoading(true);
-        const [currentRankings, baselineData] = await Promise.all([fetchCurrentRankings(), fetchBaselines()]);
+        const rankingsPromise = fetchCurrentRankings();
+        const baselinesPromise = fetchBaselines();
 
-        setRankings(currentRankings);
-        if (baselineData.success) {
-            setCompRatings(baselineData.data);
-        } else {
-            console.error('Failed to fetch baseline data:', baselineData.message);
+        try {
+            const currentRankings = await rankingsPromise;
+            setRankings(currentRankings);
+        } catch (error) {
+            console.error("Error fetching rankings:", error);
+            setRankings([]); // Fallback to an empty array on error
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
-        setLoadingIndicators(false);
+
+        try {
+            const baselineData = await baselinesPromise;
+            if (baselineData.success) {
+                setCompRatings(baselineData.data);
+            } else {
+                console.error('Failed to fetch baseline data:', baselineData.message);
+            }
+        } catch (error) {
+            console.error('Error fetching baseline data:', error);
+        } finally {
+            setLoadingIndicators(false);
+        }
     };
 
     const fetchCurrentRankings = async () => {
