@@ -797,19 +797,29 @@ body {
 
 /* Admin Toggle Button */
 .admin-toggle-button {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1000;
-  width: auto; /* Ensure the button is not as wide as the whole screen */
+    position: fixed;
+    bottom: 80px; /* Position above the floating button */
+    right: 20px;
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    z-index: 10000; /* Ensure the button is in front of everything */
+    pointer-events: auto; /* Ensure the button can be interacted with */
+    display: flex; /* Ensure the button is displayed properly */
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    visibility: visible; /* Ensure the button is visible */
+    opacity: 1; /* Ensure the button is fully opaque */
 }
 
 .admin-toggle-button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }

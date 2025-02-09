@@ -305,15 +305,15 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                        After that we will be looking into the aspects of helping players learn and improve with an acheivements dashboard. </p>
                 </div>
             </div>
-            <button className="floating-button" onClick={handleButtonClick}>
-                {isLoggedIn ? 'Your Analytics and Recommendations' : 'Already a member? Login above.'}
-                <span className="chart-icon">📊</span>
-            </button>
             {isLoggedIn && username === 'adamo25' && (
                 <button className="admin-toggle-button" onClick={onToggleAdminMode}>
                     Admin View ({isAdminMode ? 'ON' : 'OFF'})
                 </button>
             )}
+            <button className="floating-button" onClick={handleButtonClick}>
+                {isLoggedIn ? 'Your Analytics and Recommendations' : 'Already a member? Login above.'}
+                <span className="chart-icon">📊</span>
+            </button>
             {isLoggedIn && showModal && (
                 <div className="modal" onClick={handleOutsideClick}>
                     <div className="modal-content">
