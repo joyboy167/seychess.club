@@ -42,6 +42,12 @@ PUSHED.
 Rewrite some of the devlogs. (done)
 Add Naveen.  (done)
 
+PUSHED.
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
-direction towards progress acheivements and that sidebar? 
+(10/02/2025)
+
+I think maybe we need to do research about extending the player dashboard and stuff? 
+see waht else we can get from the APIs?
+
+
