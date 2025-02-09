@@ -39,5 +39,9 @@ PUSHED.
 
 (08/02/2025)
 
-Rewrite some of the devlogs.
-Add Naveen.  
+Rewrite some of the devlogs. (done)
+Add Naveen.  (done)
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+direction towards progress acheivements and that sidebar? 

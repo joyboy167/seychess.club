@@ -279,19 +279,30 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 </div>
                 <div className="navbar-content active">
                     <p>
-                        Building a player-led community for us Seychellois to compete with friends on the Chess.com leaderboards across several formats.
-                        Expanding to Lichess soon and bringing tournaments and other competitive formats.
-                        Join us and be part of the growing chess community in Seychelles.
+                        Building a player-led Chess community for Seychelles, and all those connected to it, whther globally or locally. <br/> 
+                        Our goal is to be inclusive, connect players, help people learn, and provide opportunites to compete, casually and otherwise. <br/>
+                        Join our online leaderboard and compete with friends on the Chess.com ratings across several formats, <br/>
+                        And join us our Chess.com club group, to hear about monthly tournaments, <br/>
+                        and be part of the growing chess community in Seychelles.
                     </p>
                 </div>
                 <div className="navbar-content">
-                    <p>This project is built by the community. If you have any notes, suggestions,<br />or friends who want to be featured on the site,<br />feel free to message me <a href="https://www.chess.com/member/adamo25" target="_blank" rel="noopener noreferrer">here</a> for further information.</p>
+                    <p>This project is built by the community, first and foremost.<br/> 
+                    So, if you have any notes, suggestions, or friends who want to be featured on the site,<br />
+                    feel free to message us on our <a href="https://www.instagram.com/theseychessclub/" target="_blank" rel="noopener noreferrer">Instagram Page</a> for further information.</p>
                 </div>
                 <div className="navbar-content">
-                    <p>This section provides information about upcoming chess federation tournaments and potential SeyChess online tournaments in the future. We hope to find a format for players to compete for leaderboard head-to-head points and other competitive aspects. Watch this space for updates!</p>
+                    <p>This section provides information about upcoming Chess Federation and Seychess tournaments.<br/> 
+                    We hope to find a format for players to compete for leaderboard head-to-head points and other competitive aspects.<br/> 
+                    We have now started a monthly Seychess Sunday Series, so more info on that on Socials!</p>
                 </div>
                 <div className="navbar-content center-align">
-                    <p>Hi guys, it's Adam. Here is our roadmap for upcoming improvements to the site:<br />Main goal: Work on the navbar consistency.<br />Minor goal: Responsive design improvements.<br />Minor goal: Growing to 15 players.<br /></p>
+                    <p>Hey this is just a short section about what we are working on.<br/> 
+                    A roadmap for upcoming improvements to the site, or goals for The Seychess Club as a whole.<br />
+                   Main goal right now is growing the community, and seeing how the servers handle it hahaha.<br/>
+                       Working and seeing what we can do with connecting the people we currently have, to become a club socially. <br/> 
+                       And we have also launched the Seychess Sunday series, which is the starting point of competing.<br />
+                       After that we will be looking into the aspects of helping players learn and improve with an acheivements dashboard. </p>
                 </div>
             </div>
             <button className="floating-button" onClick={handleButtonClick}>

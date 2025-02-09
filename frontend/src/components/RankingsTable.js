@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
-import blankDp from '../blank-dp.svg'; // Import blank-dp.svg
+import blankDp from '../blank-dp.svg';
 
-// Player List: Include platform, username, and hardcoded real names
 const players = [
     { username: "adamo25", platform: "chesscom", realName: "Adam Furneau" },
     { username: "Mordecai_6", platform: "chesscom", realName: "Darius Hoareau" },
@@ -47,44 +46,28 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
 
     const fetchRankingsAndBaselines = async () => {
         setLoading(true);
-        const rankingsPromise = fetchCurrentRankings();
-        const baselinesPromise = fetchBaselines();
+        const [currentRankings, baselineData] = await Promise.all([fetchCurrentRankings(), fetchBaselines()]);
 
-        try {
-            const currentRankings = await rankingsPromise;
-            setRankings(currentRankings);
-        } catch (error) {
-            console.error("Error fetching rankings:", error);
-            setRankings([]); // Fallback to an empty array on error
-        } finally {
-            setLoading(false);
+        setRankings(currentRankings);
+        if (baselineData.success) {
+            setCompRatings(baselineData.data);
+        } else {
+            console.error('Failed to fetch baseline data:', baselineData.message);
         }
-
-        try {
-            const baselineData = await baselinesPromise;
-            if (baselineData.success) {
-                setCompRatings(baselineData.data);
-            } else {
-                console.error('Failed to fetch baseline data:', baselineData.message);
-            }
-        } catch (error) {
-            console.error('Error fetching baseline data:', error);
-        } finally {
-            setLoadingIndicators(false);
-        }
+        setLoading(false);
+        setLoadingIndicators(false);
     };
 
     const fetchCurrentRankings = async () => {
         const rankings = await Promise.all(players.map(async (player) => {
             try {
                 let ratingData = { rapid: "N/A", blitz: "N/A", bullet: "N/A", puzzle: "N/A", avgRating: "N/A" };
-                let avatar = blankDp; // Use blank-dp.svg as the default avatar
+                let avatar = blankDp;
                 let realName = player.realName;
 
-                // Fetch data from Chess.com
                 if (player.platform === "chesscom") {
-                    const [profileRes, statsRes] = await Promise.all([ 
-                        fetch(`https://api.chess.com/pub/player/${player.username}`), 
+                    const [profileRes, statsRes] = await Promise.all([
+                        fetch(`https://api.chess.com/pub/player/${player.username}`),
                         fetch(`https://api.chess.com/pub/player/${player.username}/stats`)
                     ]);
 
@@ -93,17 +76,15 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                     const profileData = await profileRes.json();
                     const statsData = await statsRes.json();
 
-                    avatar = profileData.avatar || blankDp; // Use blank-dp.svg if no avatar is available
-
+                    avatar = profileData.avatar || blankDp;
                     ratingData = {
-                        puzzle: statsData.tactics?.highest?.rating || "N/A", // Fetch highest puzzle rating ever
+                        puzzle: statsData.tactics?.highest?.rating || "N/A",
                         bullet: statsData.chess_bullet?.last?.rating || "N/A",
                         blitz: statsData.chess_blitz?.last?.rating || "N/A",
                         rapid: statsData.chess_rapid?.last?.rating || "N/A"
                     };
                 }
 
-                // Calculate the average rating
                 const avgRating = calculateAvgRating(ratingData);
 
                 return {
@@ -117,11 +98,10 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                 };
             } catch (error) {
                 console.error(`Error processing ${player.username}:`, error);
-                return null; // Handle failure gracefully
+                return null;
             }
         }));
 
-        // Sort rankings and assign ranks
         return rankings.filter(Boolean).sort((a, b) => b.avgRating - a.avgRating).map((player, index) => ({
             ...player,
             rank: index + 1
@@ -151,11 +131,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         const sortedRankings = [...rankings].sort((a, b) => {
             const aValue = a[key] === "N/A" ? 0 : a[key];
             const bValue = b[key] === "N/A" ? 0 : b[key];
-            if (direction === 'asc') {
-                return aValue - bValue;
-            } else {
-                return bValue - aValue;
-            }
+            return direction === 'asc' ? aValue - bValue : bValue - aValue;
         });
         setRankings(sortedRankings);
     };
@@ -242,7 +218,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
         if (playerIndex !== -1) {
             updatedCompRatings[playerIndex][key] = value;
             setCompRatings(updatedCompRatings);
-            updateBaselineData(updatedCompRatings); // Send updated data to the backend
+            updateBaselineData(updatedCompRatings);
         }
     };
 
@@ -335,7 +311,7 @@ const RankingsTable = ({ loggedInUsername, isAdminMode }) => {
                             {rankings.length > 0 ? (
                                 rankings.map((player, index) => {
                                     const avgRating = player.avgRating === "N/A" ? "N/A" : player.avgRating.toFixed(1);
-                                    const duration = 2.13; // Increase speed by 25%
+                                    const duration = 2.13;
 
                                     let medal = '', medalTooltip = '';
                                     if (player.rank === 1) {
