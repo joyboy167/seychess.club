@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import CountUp from 'react-countup';
 import { FaUser } from 'react-icons/fa'; // Import the user icon
-import { getPlayerStats, fetchGameStats, fetchPlayerStats } from './Analytics.js';
+import { getPlayerStats, fetchGameStats, fetchPlayerStats } from './analytics.js';
 
 const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
@@ -110,46 +110,21 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         }
     };
 
-    const renderOverviewContent = () => {
-        const { wins, losses, draws } = calculateWinLossDraw();
-        return (
-            <div className="overview-content">
-                <h3>Overview</h3>
-                <p>Username: {username}</p>
-                <p>
-                    Win/Loss (Last 30 Days):
-                    <br />
-                    Rapid: <span className="win">{winLossStats.rapid.wins}</span> / <span className="loss">{winLossStats.rapid.losses}</span>
-                    <br />
-                    Blitz: <span className="win">{winLossStats.blitz.wins}</span> / <span className="loss">{winLossStats.blitz.losses}</span>
-                    <br />
-                    Bullet: <span className="win">{winLossStats.bullet.wins}</span> / <span className="loss">{winLossStats.bullet.losses}</span>
-                </p>
-                <div className="rating-boxes">
-                    {renderRatingBox('Puzzle 🧩', playerStats.tactics?.highest?.rating, getPreviousRating('puzzle'))}
-                    {renderRatingBox('Bullet 🚀', playerStats.chess_bullet?.last?.rating, getPreviousRating('bullet'))}
-                    {renderRatingBox('Blitz ⚡', playerStats.chess_blitz?.last?.rating, getPreviousRating('blitz'))}
-                    {renderRatingBox('Rapid ⏱️', playerStats.chess_rapid?.last?.rating, getPreviousRating('rapid'))}
-                    {renderRatingBox('Average', calculateAverageRating(), getPreviousRating('avgRating'), true)}
-                </div>
-                <div className="recommendation-box">
-                    <h4>Recommendations</h4>
-                    {renderRecommendations()}
-                </div>
-            </div>
-        );
-    };
-
     const calculateWinLossDraw = () => {
-        const last30Games = gameStats.slice(-30);
+        const last7Games = gameStats.slice(-7);
         let wins = 0, losses = 0, draws = 0;
-        last30Games.forEach(game => {
+        last7Games.forEach(game => {
             const result = game.white.username === username ? game.white.result : game.black.result;
             if (result === 'win') wins++;
             else if (result === 'loss') losses++;
             else if (result === 'draw') draws++;
         });
         return { wins, losses, draws };
+    };
+
+    const calculateWinPercentage = (wins, losses) => {
+        const totalGames = wins + losses;
+        return totalGames > 0 ? ((wins / totalGames) * 100).toFixed(2) : "0.00";
     };
 
     const calculateAverageRating = () => {
@@ -230,6 +205,54 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
             </ul>
         ) : (
             <p>No specific recommendations at this time. Keep up the good work!</p>
+        );
+    };
+
+    const getWinRateMessage = (winPercentage) => {
+        if (winPercentage > 55) {
+            return "Keep playing games (you are probably underrated).";
+        } else if (winPercentage < 45) {
+            return "Stop playing games (take a break, work on your game).";
+        } else {
+            return "You are near your ceiling at your current level.";
+        }
+    };
+
+    const renderOverviewContent = () => {
+        const { wins, losses, draws } = calculateWinLossDraw();
+        const rapidWinPercentage = calculateWinPercentage(winLossStats.rapid.wins, winLossStats.rapid.losses);
+        const blitzWinPercentage = calculateWinPercentage(winLossStats.blitz.wins, winLossStats.blitz.losses);
+        const bulletWinPercentage = calculateWinPercentage(winLossStats.bullet.wins, winLossStats.bullet.losses);
+
+        return (
+            <div className="overview-content">
+                <h3>Overview</h3>
+                <div className="username-box">
+                    <h4>Username</h4>
+                    <p>{username} <span className="real-name">({playerStats.realName})</span></p>
+                </div>
+                <div className="win-loss-box">
+                    <h4>Win/Loss (Last 7 Days)</h4>
+                    <p>
+                        Rapid: <span className="win">{winLossStats.rapid.wins}</span> / <span className="loss">{winLossStats.rapid.losses}</span> (<span className="win-percentage">{rapidWinPercentage}%</span>) - {getWinRateMessage(rapidWinPercentage)}
+                        <br />
+                        Blitz: <span className="win">{winLossStats.blitz.wins}</span> / <span className="loss">{winLossStats.blitz.losses}</span> (<span className="win-percentage">{blitzWinPercentage}%</span>) - {getWinRateMessage(blitzWinPercentage)}
+                        <br />
+                        Bullet: <span className="win">{winLossStats.bullet.wins}</span> / <span className="loss">{winLossStats.bullet.losses}</span> (<span className="win-percentage">{bulletWinPercentage}%</span>) - {getWinRateMessage(bulletWinPercentage)}
+                    </p>
+                </div>
+                <div className="rating-boxes">
+                    {renderRatingBox('Puzzle 🧩', playerStats.tactics?.highest?.rating, getPreviousRating('puzzle'))}
+                    {renderRatingBox('Bullet 🚀', playerStats.chess_bullet?.last?.rating, getPreviousRating('bullet'))}
+                    {renderRatingBox('Blitz ⚡', playerStats.chess_blitz?.last?.rating, getPreviousRating('blitz'))}
+                    {renderRatingBox('Rapid ⏱️', playerStats.chess_rapid?.last?.rating, getPreviousRating('rapid'))}
+                    {renderRatingBox('Average', calculateAverageRating(), getPreviousRating('avgRating'), true)}
+                </div>
+                <div className="recommendation-box">
+                    <h4>Recommendations</h4>
+                    {renderRecommendations()}
+                </div>
+            </div>
         );
     };
 

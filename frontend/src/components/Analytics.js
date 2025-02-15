@@ -1,10 +1,8 @@
-const fetch = require('node-fetch');
-
 async function fetchPlayerGames(username) {
     const now = new Date();
-    const last30Days = new Date(now.setDate(now.getDate() - 30));
-    const year = last30Days.getFullYear();
-    const month = ('0' + (last30Days.getMonth() + 1)).slice(-2);
+    const last7Days = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000)); // Calculate 7 days before the current date
+    const year = last7Days.getFullYear();
+    const month = ('0' + (last7Days.getMonth() + 1)).slice(-2);
 
     const response = await fetch(`https://api.chess.com/pub/player/${username}/games/${year}/${month}`);
     const data = await response.json();
@@ -52,4 +50,4 @@ async function fetchPlayerStats(username) {
     return await response.json();
 }
 
-module.exports = { getPlayerStats, fetchGameStats, fetchPlayerStats };
+export { getPlayerStats, fetchGameStats, fetchPlayerStats };

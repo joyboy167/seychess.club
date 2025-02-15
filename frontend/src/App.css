@@ -739,6 +739,18 @@ body {
     margin-top: 20px; /* Add some space above the box */
 }
 
+/* Win/Loss Box Styling */
+.win-loss-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left; /* Left align the title */
+    width: 100%; /* Take up the whole space below the last boxes */
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    margin-top: 20px; /* Add some space above the box */
+}
+
 /* Login Box Styling */
 .login-box {
     display: flex;
@@ -822,4 +834,112 @@ body {
 .admin-toggle-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Win Percentage Styling */
+.win-percentage {
+    color: #00aaff; /* Blue font for win percentage */
+    font-weight: bold;
+}
+
+/* Overview Content Styling */
+.overview-content {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 20px;
+    border-radius: 10px;
+    color: #ddd; /* Match table text color */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Match table shadow */
+    margin-top: 20px; /* Add some space above the box */
+}
+
+.overview-content h3 {
+    text-align: left; /* Align text to the left */
+    margin-bottom: 20px; /* Add some space below the heading */
+}
+
+.overview-content p {
+    text-align: left; /* Align text to the left */
+    margin-bottom: 10px; /* Add some space below the paragraph */
+}
+
+/* Rating Boxes Styling */
+.rating-boxes {
+    display: flex;
+    justify-content: space-around; /* Space between the boxes */
+    margin-top: 20px;
+}
+
+.rating-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 20%;
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    display: flex;
+    flex-direction: column; /* Split vertically */
+    justify-content: space-between; /* Space between title and rating */
+}
+
+.rating-box-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Faint grey line */
+}
+
+.rating-box-rating {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-box p {
+    text-align: center; /* Center the rating number inside the box */
+}
+
+.change-indicator {
+    display: inline-block; /* Change to inline-block to be on the same line */
+    margin-left: 5px; /* Add some space between the rating and the indicator */
+    vertical-align: middle; /* Align vertically with the rating */
+}
+
+.rating-box.average-rating {
+    background-color: #f0f0f0; /* Softer white background */
+    color: #000; /* Black text */
+}
+
+.rating-box.average-rating .rating-box-title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Faint black line */
+}
+
+.recommendation-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left; /* Left align the title */
+    width: 100%; /* Take up the whole space below the last boxes */
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    margin-top: 20px; /* Add some space above the box */
+}
+
+/* Username Box Styling */
+.username-box {
+    background-color: #1b1b1b; /* Match table header background color */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left; /* Left align the title */
+    width: 100%; /* Take up the whole space below the last boxes */
+    color: #ffffff; /* Match table header text color */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Optional shadow for a polished look */
+    margin-top: 20px; /* Add some space above the box */
+}
+
+/* Real Name Styling */
+.real-name {
+    color: #00aaff; /* Blue font for real name */
 }

@@ -2,9 +2,11 @@
 
 (15/02/2025)
 
-I think maybe we need to do research about extending the player dashboard and stuff? 
-see waht else we can get from the APIs?
+ive got some good info from the oublic APIs to work on anayltics. (done)
 
+PUSHED. 
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+need to to keep working on analytics, and see if we can build an analyser. 
 
 
