@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import CountUp from 'react-countup';
 import { FaUser } from 'react-icons/fa'; // Import the user icon
+import { getPlayerStats, fetchGameStats, fetchPlayerStats } from './Analytics.js';
 
 const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
@@ -10,6 +11,7 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [gameStats, setGameStats] = useState([]);
     const [playerStats, setPlayerStats] = useState({});
     const [compRatings, setCompRatings] = useState([]);
+    const [winLossStats, setWinLossStats] = useState({ rapid: {}, blitz: {}, bullet: {} });
     const usernameInputRef = useRef(null);
 
     useEffect(() => {
@@ -35,7 +37,11 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         if (isAdminMode) {
             fetchCompRatings();
         }
-    }, [isAdminMode]);
+
+        if (isLoggedIn) {
+            fetchWinLossStats();
+        }
+    }, [isAdminMode, isLoggedIn]);
 
     const fetchCompRatings = async () => {
         try {
@@ -72,35 +78,20 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         onLogin(''); // Notify parent component of logout
     };
 
-    const fetchGameStats = async () => {
+    const fetchWinLossStats = async () => {
         try {
-            const response = await fetch(`https://api.chess.com/pub/player/${username}/games/archives`);
-            const data = await response.json();
-            const latestArchiveUrl = data.archives[data.archives.length - 1];
-            const latestGamesResponse = await fetch(latestArchiveUrl);
-            const latestGamesData = await latestGamesResponse.json();
-            const rapidGames = latestGamesData.games.filter(game => game.time_class === 'rapid').slice(-10);
-            setGameStats(rapidGames);
+            const stats = await getPlayerStats(username);
+            setWinLossStats(stats);
         } catch (error) {
-            console.error("Error fetching game stats:", error);
-        }
-    };
-
-    const fetchPlayerStats = async () => {
-        try {
-            const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
-            const data = await response.json();
-            setPlayerStats(data);
-        } catch (error) {
-            console.error("Error fetching player stats:", error);
+            console.error("Error fetching win/loss stats:", error);
         }
     };
 
     const handleButtonClick = () => {
         if (isLoggedIn) {
             setShowModal(true);
-            fetchGameStats();
-            fetchPlayerStats();
+            fetchGameStats(username).then(setGameStats).catch(console.error);
+            fetchPlayerStats(username).then(setPlayerStats).catch(console.error);
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             setTimeout(() => {
@@ -126,10 +117,13 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 <h3>Overview</h3>
                 <p>Username: {username}</p>
                 <p>
-                    Win/Loss/Draw (Last 30 Games): 
-                    <span className="win"> {wins}</span> / 
-                    <span className="loss"> {losses}</span> / 
-                    <span className="draw"> {draws}</span>
+                    Win/Loss (Last 30 Days):
+                    <br />
+                    Rapid: <span className="win">{winLossStats.rapid.wins}</span> / <span className="loss">{winLossStats.rapid.losses}</span>
+                    <br />
+                    Blitz: <span className="win">{winLossStats.blitz.wins}</span> / <span className="loss">{winLossStats.blitz.losses}</span>
+                    <br />
+                    Bullet: <span className="win">{winLossStats.bullet.wins}</span> / <span className="loss">{winLossStats.bullet.losses}</span>
                 </p>
                 <div className="rating-boxes">
                     {renderRatingBox('Puzzle 🧩', playerStats.tactics?.highest?.rating, getPreviousRating('puzzle'))}
