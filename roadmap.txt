@@ -1,53 +1,10 @@
-(03/02/2025)
-
-development enviroment reasonably stable.(done) 
-going to try to reintergrate ui features. (done)
-
-PUSHED. 
-
-need to get the admin view back rolling properly. (done)
-
-PUSHED.
-
-need to chnage all seychelles ratings to avg ratings. (done)
-making a button to sunc baselines to current in admin view. (done)
-
-PUSHED.
-
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
-(05/02/2025)
-
-i tried to change the frontend function to speed up the change indidactor load (done)
-
-PUSHED. (I think it seems to work.)
-
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
-(06/02/2025)
-
-i am adding mag to the list. (done)
-still tweaking the loading, trying a new approach. (done)
-
-PUSHED.
-
-added viswara, adn did his baselines. (done) 
-
-PUSHED. 
-
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
-(08/02/2025)
-
-Rewrite some of the devlogs. (done)
-Add Naveen.  (done)
-
-PUSHED.
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
-(10/02/2025)
+(15/02/2025)
 
 I think maybe we need to do research about extending the player dashboard and stuff? 
 see waht else we can get from the APIs?
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
 
