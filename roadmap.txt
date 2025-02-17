@@ -7,6 +7,13 @@ ive got some good info from the oublic APIs to work on anayltics. (done)
 PUSHED. 
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 
-need to to keep working on analytics, and see if we can build an analyser. 
+need to to keep working on analytics, get the real name thing working. (done)
+
+PUSHED. 
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+work on reccomendations section, actually giving information to all ranges. 
+
 
 

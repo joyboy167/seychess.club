@@ -3,6 +3,25 @@ import CountUp from 'react-countup';
 import { FaUser } from 'react-icons/fa'; // Import the user icon
 import { getPlayerStats, fetchGameStats, fetchPlayerStats } from './analytics.js';
 
+const players = [
+    { username: "adamo25", platform: "chesscom", realName: "Adam Furneau" },
+    { username: "Mordecai_6", platform: "chesscom", realName: "Darius Hoareau" },
+    { username: "MinusE1", platform: "chesscom", realName: "Rudolph Camille" },
+    { username: "Jeremy_Raguain", platform: "chesscom", realName: "Jeremy Raguain" },
+    { username: "Buumpliz", platform: "chesscom", realName: "Alex Jovanovic" },
+    { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
+    { username: "adam8991", platform: "chesscom", realName: "Adam Afif" },
+    { username: "lauvalsez", platform: "chesscom", realName: "Laurent Valentin" },
+    { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" },
+    { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" },
+    { username: "vidhyasahar11", platform: "chesscom", realName: "Vidyashar" },
+    { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" },
+    { username: "Seenu29", platform: "chesscom", realName: "Seenu" },
+    { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" },
+    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" }
+];
+
 const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
     const [password, setPassword] = useState('');
@@ -12,6 +31,7 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [playerStats, setPlayerStats] = useState({});
     const [compRatings, setCompRatings] = useState([]);
     const [winLossStats, setWinLossStats] = useState({ rapid: {}, blitz: {}, bullet: {} });
+    const [realName, setRealName] = useState('');
     const usernameInputRef = useRef(null);
 
     useEffect(() => {
@@ -40,8 +60,9 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
 
         if (isLoggedIn) {
             fetchWinLossStats();
+            fetchRealName(username);
         }
-    }, [isAdminMode, isLoggedIn]);
+    }, [isAdminMode, isLoggedIn, username]);
 
     const fetchCompRatings = async () => {
         try {
@@ -57,6 +78,11 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         }
     };
 
+    const fetchRealName = (username) => {
+        const player = players.find(player => player.username === username);
+        setRealName(player ? player.realName : 'Unknown');
+    };
+
     const handleLogin = () => {
         if (username === 'adamo25' && password !== 'admin-adamo') {
             alert('Incorrect password for adamo25');
@@ -67,6 +93,7 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
             setIsLoggedIn(true);
             localStorage.setItem('username', username);
             onLogin(username); // Notify parent component of login
+            fetchRealName(username); // Fetch real name after login
         }
     };
 
@@ -76,6 +103,7 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         setIsLoggedIn(false);
         localStorage.removeItem('username');
         onLogin(''); // Notify parent component of logout
+        setRealName(''); // Clear real name on logout
     };
 
     const fetchWinLossStats = async () => {
@@ -229,7 +257,7 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 <h3>Overview</h3>
                 <div className="username-box">
                     <h4>Username</h4>
-                    <p>{username} <span className="real-name">({playerStats.realName})</span></p>
+                    <p>{username} <span className="real-name">({realName})</span></p>
                 </div>
                 <div className="win-loss-box">
                     <h4>Win/Loss (Last 7 Days)</h4>
@@ -296,8 +324,8 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 </div>
                 <div className="navbar-content active">
                     <p>
-                        Building a player-led Chess community for Seychelles, and all those connected to it, whther globally or locally. <br/> 
-                        Our goal is to be inclusive, connect players, help people learn, and provide opportunites to compete, casually and otherwise. <br/>
+                        Building a player-led Chess community for Seychelles, and all those connected to it, whether globally or locally. <br/> 
+                        Our goal is to be inclusive, connect players, help people learn, and provide opportunities to compete, casually and otherwise. <br/>
                         Join our online leaderboard and compete with friends on the Chess.com ratings across several formats, <br/>
                         And join us our Chess.com club group, to hear about monthly tournaments, <br/>
                         and be part of the growing chess community in Seychelles.
@@ -316,10 +344,10 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 <div className="navbar-content center-align">
                     <p>Hey this is just a short section about what we are working on.<br/> 
                     A roadmap for upcoming improvements to the site, or goals for The Seychess Club as a whole.<br />
-                   Main goal right now is growing the community, and seeing how the servers handle it hahaha.<br/>
-                       Working and seeing what we can do with connecting the people we currently have, to become a club socially. <br/> 
-                       And we have also launched the Seychess Sunday series, which is the starting point of competing.<br />
-                       After that we will be looking into the aspects of helping players learn and improve with an acheivements dashboard. </p>
+                    Main goal right now is growing the community, and seeing how the servers handle it hahaha.<br/>
+                    Working and seeing what we can do with connecting the people we currently have, to become a club socially. <br/> 
+                    And we have also launched the Seychess Sunday series, which is the starting point of competing.<br />
+                    After that we will be looking into the aspects of helping players learn and improve with an achievements dashboard. </p>
                 </div>
             </div>
             {isLoggedIn && username === 'adamo25' && (

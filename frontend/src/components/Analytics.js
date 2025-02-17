@@ -1,3 +1,22 @@
+const players = [
+    { username: "adamo25", platform: "chesscom", realName: "Adam Furneau" },
+    { username: "Mordecai_6", platform: "chesscom", realName: "Darius Hoareau" },
+    { username: "MinusE1", platform: "chesscom", realName: "Rudolph Camille" },
+    { username: "Jeremy_Raguain", platform: "chesscom", realName: "Jeremy Raguain" },
+    { username: "Buumpliz", platform: "chesscom", realName: "Alex Jovanovic" },
+    { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
+    { username: "adam8991", platform: "chesscom", realName: "Adam Afif" },
+    { username: "lauvalsez", platform: "chesscom", realName: "Laurent Valentin" }, // Updated real name
+    { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" },
+    { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" },
+    { username: "vidhyasahar11", platform: "chesscom", realName: "Vidyashar" },
+    { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" },
+    { username: "Seenu29", platform: "chesscom", realName: "Seenu" },
+    { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" },
+    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" }
+];
+
 async function fetchPlayerGames(username) {
     const now = new Date();
     const last7Days = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000)); // Calculate 7 days before the current date
@@ -33,7 +52,9 @@ function tallyWinsLosses(games, username) {
 
 async function getPlayerStats(username) {
     const games = await fetchPlayerGames(username);
-    return tallyWinsLosses(games, username);
+    const realName = players.find(player => player.username === username)?.realName || 'Unknown';
+    const winLossStats = tallyWinsLosses(games, username);
+    return { ...winLossStats, realName };
 }
 
 async function fetchGameStats(username) {
