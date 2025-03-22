@@ -73,14 +73,15 @@ body {
 .rankings-table {
   width: 100%; /* Default full width for table */
   border-collapse: collapse;
-  background-color: #111;
-  color: #ddd;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  background: var(--card-bg);
+  border: var(--card-border);
+  box-shadow: var(--box-shadow);
   border-radius: 10px;
   overflow: hidden;
   margin: 0 auto; /* Center the table */
   border-left: 1px solid #444; /* Add left border to table */
   border-right: 1px solid #444; /* Add right border to table */
+  transition: var(--transition-smooth);
 }
 
 .rankings-table thead {
@@ -129,13 +130,17 @@ body {
   gap: 0; /* Remove gap */
 }
 
+.rankings-table tr {
+  transition: background-color 0.2s ease;
+}
+
 .rankings-table tr:nth-child(even) {
   background-color: #181818;
 }
 
 .rankings-table tr:hover {
-  background-color: #222;
-  transition: background-color 0.3s ease;
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(23, 23, 23, 0.9));
+  backdrop-filter: blur(4px);
 }
 
 .rankings-table a {
@@ -276,6 +281,8 @@ body {
   position: relative; /* For separator positioning */
   font-size: 1.4rem; /* Increase font size */
   white-space: nowrap; /* Prevent text from wrapping into two lines */
+  position: relative;
+  overflow: hidden;
 }
 
 .navbar-item::after {
@@ -287,6 +294,27 @@ body {
   width: 1px;
   height: 50%;
   background-color: rgba(255, 255, 255, 0.3); /* Opaque separator */
+}
+
+.navbar-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color);
+  transition: var(--transition-smooth);
+}
+
+.navbar-item:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+.navbar-item.active::before {
+  width: 100%;
+  left: 0;
 }
 
 .navbar-item:last-child::after {
@@ -607,7 +635,9 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007BFF; /* Blue color */
+    background: linear-gradient(145deg, #0084ff, #0062ff);
+    backdrop-filter: blur(8px);
+    border: var(--card-border);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -616,7 +646,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+    transition: var(--transition-smooth);
     z-index: 10000; /* Ensure the button is in front of everything */
     pointer-events: auto; /* Ensure the button can be interacted with */
     display: flex; /* Ensure the button is displayed properly */
@@ -624,6 +654,11 @@ body {
     justify-content: center; /* Center the text horizontally */
     visibility: visible; /* Ensure the button is visible */
     opacity: 1; /* Ensure the button is fully opaque */
+}
+
+.floating-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
 }
 
 .floating-button .chart-icon {
@@ -646,7 +681,8 @@ body {
 }
 
 .modal-content {
-    background-color: #111; /* Match table background color */
+    background: var(--card-bg);
+    border: var(--card-border);
     padding: 20px;
     border-radius: 10px;
     width: 90%; /* Increase width to 90% */
@@ -656,6 +692,13 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Match table shadow */
+    animation: modalFadeIn 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .overview-content h3,
@@ -682,7 +725,8 @@ body {
 }
 
 .rating-box {
-    background-color: #1b1b1b; /* Match table header background color */
+    background: var(--card-bg);
+    border: var(--card-border);
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -692,6 +736,12 @@ body {
     display: flex;
     flex-direction: column; /* Split vertically */
     justify-content: space-between; /* Space between title and rating */
+    transition: var(--transition-smooth);
+}
+
+.rating-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 170, 255, 0.15);
 }
 
 .rating-box-title {
@@ -720,12 +770,22 @@ body {
 }
 
 .rating-box.average-rating {
-    background-color: #f0f0f0; /* Softer white background */
-    color: #000; /* Black text */
+    background: linear-gradient(145deg, #2a2a2a, #1e1e1e); /* Darker gradient background */
+    color: var(--text-primary); /* White text */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 }
 
 .rating-box.average-rating .rating-box-title {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Faint black line */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary); /* White text */
+}
+
+.rating-box.average-rating .rating-box-rating {
+    color: var(--text-primary); /* White text */
+}
+
+.rating-box.average-rating p {
+    color: var(--text-primary); /* White text */
 }
 
 .recommendation-box {
@@ -870,7 +930,8 @@ body {
 }
 
 .rating-box {
-    background-color: #1b1b1b; /* Match table header background color */
+    background: var(--card-bg);
+    border: var(--card-border);
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -880,6 +941,12 @@ body {
     display: flex;
     flex-direction: column; /* Split vertically */
     justify-content: space-between; /* Space between title and rating */
+    transition: var(--transition-smooth);
+}
+
+.rating-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 170, 255, 0.15);
 }
 
 .rating-box-title {
@@ -908,12 +975,22 @@ body {
 }
 
 .rating-box.average-rating {
-    background-color: #f0f0f0; /* Softer white background */
-    color: #000; /* Black text */
+    background: linear-gradient(145deg, #2a2a2a, #1e1e1e); /* Darker gradient background */
+    color: var(--text-primary); /* White text */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 }
 
 .rating-box.average-rating .rating-box-title {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Faint black line */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary); /* White text */
+}
+
+.rating-box.average-rating .rating-box-rating {
+    color: var(--text-primary); /* White text */
+}
+
+.rating-box.average-rating p {
+    color: var(--text-primary); /* White text */
 }
 
 .recommendation-box {
@@ -951,4 +1028,31 @@ body {
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 5px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin: 20px 0 15px;
+}
+
+/* Modern UI Improvements */
+:root {
+  --primary-color: #007BFF;
+  --primary-dark: #0056b3;
+  --text-primary: #ffffff;
+  --text-secondary: #b8b8b8;
+  --bg-dark: #111111;
+  --bg-darker: #0a0a0a;
+  --accent-color: #00aaff;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --bg-gradient-start: #1a1a1a;
+  --bg-gradient-end: #111111;
+  --card-bg: linear-gradient(145deg, #1e1e1e, #171717);
+  --card-border: 1px solid rgba(255, 255, 255, 0.05);
+  --box-shadow: 0 4px 15px rgba(0, 170, 255, 0.1);
+  --transition-smooth: all 0.3s ease;
 }
