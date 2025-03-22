@@ -236,6 +236,147 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         );
     };
 
+    const renderProgressPlan = () => {
+        const rapidRating = playerStats.chess_rapid?.last?.rating || 0;
+        const generalInfo = (
+            <div>
+                <h4>General Tips for All Levels</h4>
+                <ul>
+                    <li>Consistent Practice: Playing and analyzing games is the backbone of improvement.</li>
+                    <li>Balance in Study: Divide training time among tactics, endgames, middlegame strategy, and openings in a proportion appropriate to your level.</li>
+                    <li>Use Chess Tools Wisely: Engines and game review features are great, but always try to understand the reasoning behind moves, not just the raw evaluation.</li>
+                    <li>Physical & Mental Well-being: Chess strength is also about focus, energy, and emotional control—take breaks, manage stress, and stay healthy.</li>
+                </ul>
+            </div>
+        );
+
+        const plans = [
+            {
+                range: "0–300 (Complete Beginners)",
+                tips: [
+                    "Learn the Rules Thoroughly",
+                    "Ensure you fully understand how each piece moves, castling rules, en passant, and check/checkmate.",
+                    "Practice setting up basic mates (e.g., checkmate with two rooks, checkmate with one queen).",
+                    "Basic Board Awareness",
+                    "Identify threats: if the opponent can capture one of your pieces for free, notice it in advance.",
+                    "Play Slow or Turn-Based Games",
+                    "Give yourself time to think. Rapid or daily games let you practice seeing threats and applying new knowledge without time pressure.",
+                    "Simple Tactics",
+                    "Start with 1-move or 2-move tactic puzzles. Focus on seeing unguarded pieces and basic forks."
+                ]
+            },
+            {
+                range: "300–600",
+                tips: [
+                    "Avoid Hanging Pieces",
+                    "Develop a mental checklist: “Is my opponent threatening anything?” “Am I leaving any piece undefended?”",
+                    "Basic Opening Principles",
+                    "Bring out minor pieces (knights and bishops) before moving your queen. Control the center (e4, d4, e5, d5 squares).",
+                    "Castle early and connect rooks.",
+                    "Continue Simplified Tactics",
+                    "Practice puzzles focusing on pins, forks, skewers, and simple checkmating patterns.",
+                    "Short Games & Review",
+                    "Use the Game Review (analysis) on chess.com or other software to see where you drop material or miss simple tactics."
+                ]
+            },
+            {
+                range: "600–800",
+                tips: [
+                    "Refine Opening Principles",
+                    "Don’t memorize openings deeply yet, but learn the first few moves of common openings (e.g., Italian Game, Scotch, etc.) and the ideas behind them.",
+                    "Basic Endgames",
+                    "Practice simple King & Pawn vs. King, King & Queen vs. King, and King & Rook vs. King endgames.",
+                    "Knowing these fundamentals ensures you can convert winning positions.",
+                    "Tactical Motifs",
+                    "Add slightly more complex puzzles: double attacks, discovered attacks, and basic mating nets (like back rank mates).",
+                    "Blunder Checking",
+                    "Before you make a move, quickly scan for whether you’re leaving a piece en prise or missing your opponent’s threats."
+                ]
+            },
+            {
+                range: "800–1000",
+                tips: [
+                    "Consistent Tactical Training",
+                    "Work on tactics daily, focusing on 2–3 move sequences and common patterns.",
+                    "Look for forcing moves (checks, captures, threats).",
+                    "Basic Strategic Concepts",
+                    "Develop all your pieces before launching an attack. Avoid moving the same piece multiple times in the opening.",
+                    "Learn to identify weak squares and outposts.",
+                    "Endgame Practice",
+                    "Add more complex endgames to your practice, like King & Pawn vs. King & Pawn, and basic Rook endgames.",
+                    "Game Analysis",
+                    "Review your games to understand your mistakes. Focus on why you lost material or missed tactics."
+                ]
+            },
+            {
+                range: "1000–1200",
+                tips: [
+                    "Opening Repertoire",
+                    "Start building a basic opening repertoire. Learn the main lines and ideas of a few openings for white and black.",
+                    "Intermediate Tactics",
+                    "Work on more complex tactics, including multi-move combinations and defensive tactics.",
+                    "Positional Play",
+                    "Learn about pawn structures, weak squares, and piece activity. Understand the importance of controlling open files and diagonals.",
+                    "Endgame Knowledge",
+                    "Study more advanced endgames, including opposition, triangulation, and basic Rook endgames.",
+                    "Game Analysis",
+                    "Analyze your games with a stronger player or coach to identify recurring mistakes and areas for improvement."
+                ]
+            },
+            {
+                range: "1200–1400",
+                tips: [
+                    "Advanced Opening Study",
+                    "Deepen your knowledge of your chosen openings. Learn the typical middlegame plans and common traps.",
+                    "Advanced Tactics",
+                    "Work on complex tactical puzzles and combinations. Focus on calculation and visualization skills.",
+                    "Positional Understanding",
+                    "Study classic games to understand strategic concepts like pawn breaks, piece coordination, and prophylaxis.",
+                    "Endgame Mastery",
+                    "Learn advanced endgames, including Rook vs. Rook & Pawn, and minor piece endgames.",
+                    "Game Analysis",
+                    "Analyze your games in depth, focusing on strategic and tactical mistakes. Use a chess engine to verify your analysis."
+                ]
+            },
+            {
+                range: "1400+",
+                tips: [
+                    "Opening Theory",
+                    "Stay up-to-date with the latest opening theory. Study games of top players to learn new ideas and trends.",
+                    "Advanced Tactics & Calculation",
+                    "Work on complex tactical exercises and calculation drills. Focus on improving your calculation speed and accuracy.",
+                    "Positional Play & Strategy",
+                    "Study advanced positional concepts, including pawn structures, weak squares, and piece activity. Learn to create and exploit imbalances.",
+                    "Endgame Expertise",
+                    "Master complex endgames, including Rook vs. Rook & Pawn, minor piece endgames, and advanced pawn endgames.",
+                    "Game Analysis & Improvement",
+                    "Analyze your games with a coach or stronger player. Focus on identifying and correcting recurring mistakes. Set specific goals for improvement."
+                ]
+            }
+        ];
+
+        const currentPlan = plans.find(plan => {
+            const [min, max] = plan.range.split('–').map(Number);
+            return rapidRating >= min && rapidRating <= max;
+        });
+
+        return (
+            <div className="progress-plan">
+                {generalInfo}
+                {currentPlan && (
+                    <div>
+                        <h4>Progress Plan for Rapid ELO {currentPlan.range}</h4>
+                        <ul>
+                            {currentPlan.tips.map((tip, index) => (
+                                <li key={index}>{tip}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     const getWinRateMessage = (winPercentage) => {
         if (winPercentage > 55) {
             return "Keep playing games (you are probably underrated).";
@@ -279,6 +420,10 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                 <div className="recommendation-box">
                     <h4>Recommendations</h4>
                     {renderRecommendations()}
+                </div>
+                <div className="progress-plan-box">
+                    <h4>Progress Plan</h4>
+                    {renderProgressPlan()}
                 </div>
             </div>
         );

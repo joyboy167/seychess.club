@@ -10,15 +10,16 @@ const players = [
     { username: "Buumpliz", platform: "chesscom", realName: "Alex Jovanovic" },
     { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
     { username: "adam8991", platform: "chesscom", realName: "Adam Afif" },
-    { username: "lauvalsez", platform: "chesscom", realName: "Laura Valsez" },
-    { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" }, // Updated real name
-    { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" }, // Updated real name
-    { username: "vidhyasahar11", platform: "chesscom", realName: "Vidyashar" }, // Updated real name
-    { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" }, // New player added
-    { username: "Seenu29", platform: "chesscom", realName: "Seenu" }, // New player added
-    { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" }, // New player added
-    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" }, // New player added
-    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" } // New player added
+    { username: "lauvalsez", platform: "chesscom", realName: "Laurent Valentin" },
+    { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" },
+    { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" },
+    { username: "vidhyasahar11", platform: "chesscom", realName: "Vidyashar" },
+    { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" },
+    { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" },
+    { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" },
+    { username: "GM_Shakthi006", platform: "chesscom", realName: "Shakthi Alexander" },
+    { username: "NAVINPILLAY000017", platform: "chesscom", realName: "Navin Pillay" }
 ];
 
 const RankingsTable = ({ loggedInUsername, isAdminMode }) => {

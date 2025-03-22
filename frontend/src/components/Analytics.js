@@ -6,15 +6,16 @@ const players = [
     { username: "Buumpliz", platform: "chesscom", realName: "Alex Jovanovic" },
     { username: "durupa", platform: "chesscom", realName: "Alexander Durup" },
     { username: "adam8991", platform: "chesscom", realName: "Adam Afif" },
-    { username: "lauvalsez", platform: "chesscom", realName: "Laurent Valentin" }, // Updated real name
+    { username: "lauvalsez", platform: "chesscom", realName: "Laurent Valentin" },
     { username: "seypanda", platform: "chesscom", realName: "Leo Kwon" },
     { username: "LC9797", platform: "chesscom", realName: "Leeroy Charlette" },
     { username: "vidhyasahar11", platform: "chesscom", realName: "Vidyashar" },
     { username: "barnabysadler", platform: "chesscom", realName: "Barnaby Sadler" },
-    { username: "Seenu29", platform: "chesscom", realName: "Seenu" },
     { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" },
     { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
-    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" }
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" },
+    { username: "GM_Shakthi006", platform: "chesscom", realName: "Shakthi Alexander" },
+    { username: "NAVINPILLAY000017", platform: "chesscom", realName: "Navin Pillay" }
 ];
 
 async function fetchPlayerGames(username) {
