@@ -943,3 +943,12 @@ body {
 .real-name {
     color: #00aaff; /* Blue font for real name */
 }
+
+.progress-subtitle {
+    color: #00aaff;
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
