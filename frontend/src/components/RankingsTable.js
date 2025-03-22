@@ -19,7 +19,8 @@ const players = [
     { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
     { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" },
     { username: "GM_Shakthi006", platform: "chesscom", realName: "Shakthi Alexander" },
-    { username: "NAVINPILLAY000017", platform: "chesscom", realName: "Navin Pillay" }
+    { username: "NAVINPILLAY000017", platform: "chesscom", realName: "Navin Pillay" },
+    { username: "shakthipillay109876543210", platform: "chesscom", realName: "Shakthi Pillay" }
 ];
 
 const RankingsTable = ({ loggedInUsername, isAdminMode }) => {

@@ -19,7 +19,9 @@ const players = [
     { username: "Seenu29", platform: "chesscom", realName: "Seenu" },
     { username: "mag_sey", platform: "chesscom", realName: "Magali Rocamora Sole" },
     { username: "viswara", platform: "chesscom", realName: "Viswarajan Pillay" },
-    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" }
+    { username: "Dedicated69", platform: "chesscom", realName: "Naveen Volcere" },
+    { username: "GM_Shakthi006", platform: "chesscom", realName: "Shakthi Alexander" },
+    { username: "shakthipillay109876543210", platform: "chesscom", realName: "Shakthi Pillay" }
 ];
 
 const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
@@ -329,11 +331,11 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
                     "Advanced Opening Study",
                     "Deepen your knowledge of your chosen openings. Learn the typical middlegame plans and common traps.",
                     "Advanced Tactics",
-                    "Work on complex tactical puzzles and combinations. Focus on calculation and visualization skills.",
+                    "Work on more complex tactics, including multi-move combinations and defensive tactics.",
                     "Positional Understanding",
                     "Study classic games to understand strategic concepts like pawn breaks, piece coordination, and prophylaxis.",
                     "Endgame Mastery",
-                    "Learn advanced endgames, including Rook vs. Rook & Pawn, and minor piece endgames.",
+                    "Learn advanced endgames, including Rook vs. Rook & Pawn, minor piece endgames.",
                     "Game Analysis",
                     "Analyze your games in depth, focusing on strategic and tactical mistakes. Use a chess engine to verify your analysis."
                 ]
