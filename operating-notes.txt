@@ -1,0 +1,1 @@
+npm start both dev envs and then connect mongo. 
