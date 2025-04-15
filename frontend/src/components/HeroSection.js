@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import CountUp from 'react-countup';
-import { FaUser } from 'react-icons/fa'; // Import the user icon
+import { FaUser, FaBars } from 'react-icons/fa'; // Add FaBars import
 import { getPlayerStats, fetchGameStats, fetchPlayerStats } from './analytics.js';
+import { useNavigate, Link } from 'react-router-dom';
 
 const players = [
     { username: "adamo25", platform: "chesscom", realName: "Adam Furneau" },
@@ -34,7 +35,9 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
     const [compRatings, setCompRatings] = useState([]);
     const [winLossStats, setWinLossStats] = useState({ rapid: {}, blitz: {}, bullet: {} });
     const [realName, setRealName] = useState('');
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const usernameInputRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Navbar functionality
@@ -392,8 +395,23 @@ const HeroSection = ({ onLogin, onToggleAdminMode, isAdminMode }) => {
         );
     };
 
+    const renderMenu = () => (
+        <div className="menu-container">
+            <button className="menu-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <FaBars />
+            </button>
+            {isMenuOpen && (
+                <div className="menu-dropdown">
+                    <Link to="/">Leaderboard</Link>
+                    <Link to="/game-library">Game Library</Link>
+                </div>
+            )}
+        </div>
+    );
+
     return (
         <div className="hero-section">
+            {renderMenu()} {/* Add this line near the top of your JSX */}
             <div className="hero-content">
                 <div className="login-section">
                     {isLoggedIn ? (

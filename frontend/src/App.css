@@ -1055,4 +1055,82 @@ body {
   --card-border: 1px solid rgba(255, 255, 255, 0.05);
   --box-shadow: 0 4px 15px rgba(0, 170, 255, 0.1);
   --transition-smooth: all 0.3s ease;
+  --menu-bg: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+}
+
+.menu-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;  /* Changed from right: 20px to left: 20px */
+    z-index: 10002;
+}
+
+.menu-button {
+    background: var(--menu-bg);
+    border: var(--card-border);
+    color: var(--text-primary);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
+    box-shadow: var(--box-shadow);
+}
+
+.menu-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 170, 255, 0.2);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;     /* Changed from right: 0 to left: 0 */
+    margin-top: 10px;
+    background: var(--menu-bg);
+    border: var(--card-border);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 150px;
+    box-shadow: var(--box-shadow);
+    animation: dropdownFadeIn 0.3s ease;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.menu-dropdown a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-color);
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Game Library Page Styling */
+.game-library {
+    min-height: 100vh;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 20px;
+}
+
+.game-library h1 {
+    font-size: 2.5rem;
+    margin: 40px 0;
+    text-align: center;
+    color: var(--accent-color);
+}
+
+.game-library p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
 }

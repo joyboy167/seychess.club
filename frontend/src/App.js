@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection.js';
 import RankingsTable from './components/RankingsTable.js';
 import Footer from './components/Footer.js';
+import GameLibrary from './components/GameLibrary.js';
 import './App.css';
 
 const App = () => {
@@ -34,11 +36,18 @@ const App = () => {
     }, []);
 
     return (
-        <div>
-            <HeroSection onLogin={handleLogin} onToggleAdminMode={handleToggleAdminMode} isAdminMode={isAdminMode} />
-            <RankingsTable loggedInUsername={loggedInUsername} isAdminMode={isAdminMode} />
-            <Footer />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={
+                    <div className="app-container">
+                        <HeroSection onLogin={handleLogin} onToggleAdminMode={handleToggleAdminMode} isAdminMode={isAdminMode} />
+                        <RankingsTable loggedInUsername={loggedInUsername} isAdminMode={isAdminMode} />
+                        <Footer />
+                    </div>
+                } />
+                <Route path="/game-library" element={<GameLibrary />} />
+            </Routes>
+        </Router>
     );
 };
 
